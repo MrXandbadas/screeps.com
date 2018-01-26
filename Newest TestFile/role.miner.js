@@ -27,8 +27,8 @@ module.exports = {
                 // the second argument for findClosestByPath is an object which takes
                 // a property called filter which can be a function
                 // we use the arrow operator to define it
-                filter: (s) => (s.structureType == STRUCTURE_CONTAINER)
-                    && s.energy < s.energyCapacity
+                filter: (s) => (s.structureType == STRUCTURE_CONTAINER || s.structureType == STRUCTURE_STORAGE) &&
+                s.store[RESOURCE_ENERGY] > 0
             });
 
             // if we found one
@@ -37,6 +37,7 @@ module.exports = {
                 if (creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     // move towards it
                     creep.moveTo(structure);
+                    console.log('why aint he movin?');
                 }
             }
         }

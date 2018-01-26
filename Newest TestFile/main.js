@@ -8,8 +8,8 @@ roleName.push('harvester', 'repairer', 'wallRepairer', 'builder', 'upgrader','de
 var creep, creepRole, spawn, name, runRole,  selectedRole, energy, creepName, energyCap, allMyCreeps,minCounter, spawnMem;
 
    var setMemorySpawn = function(spawn) {
-    spawnMem.minBuilder = 3;
-    spawnMem.minDelivery = 0;    spawnMem.minMiner = 1;    spawnMem.minUpgrader = 2;    spawnMem.minRepairer = 2;    spawnMem.minHarvester = 0;    spawnMem.minWallRepairer = 0;
+    spawnMem.minBuilder = 2;
+    spawnMem.minDelivery = 0;    spawnMem.minMiner = 0;    spawnMem.minUpgrader = 4;    spawnMem.minRepairer = 3;    spawnMem.minHarvester = 3;    spawnMem.minWallRepairer = 1;
    };
 
 
@@ -75,24 +75,32 @@ module.exports.loop = function () {
         if (!(spawn.spawning == null)) {
 
             console.log('Time: ',Game.time, ': ' ,'--- Not just a Debug 😉 ---');
-            console.log(spawn.spawning.name, ' will be spawned by ', spawn.spawning.remainingTime + Game.time);
+            console.log(spawn.spawning.name, 'will be spawned by ', spawn.spawning.remainingTime + Game.time);
             console.log('-------------');
         } // end of !(spawn.spawning)
-
+        else if (harvesterCount < spM.minHarvester) {
+            console.log('Harvester Selected');
+            creepName = 'Harvester: ' + Game.time;
+            name = spawn.createCreepType1(energy, 'harvester', creepName);
+        }
+        else if (minerCount < spM.minMiner) {
+            console.log('Miner Selected');
+            creepName = 'Miner: ' + Game.time;
+            name = spawn.createCreepTypeNoMove(energy, 'miner', creepName);
+        }
+        else if (deliveryCount < spM.minDelivery) {
+            console.log('Delivery Selected.')
+            creepName = 'Delivery: ', Game.time;
+            name = spawn.createCreepTypeNoWork(energy, 'delivery', creepName);
+        }
             else if (builderCount < spM.minBuilder) {
+                console.log('Builder Selected.')
                 creepName = 'Builder: ', Game.time;
                 name = spawn.createCreepType1(energy, 'builder', creepName);
             }
-            else if (minerCount < spM.minMiner) {
-                creepName = 'Miner: ' + Game.time;
-                name = spawn.createCreepType1(energy, 'miner', creepName);
-            }
-            else if (deliveryCount < spM.minDelivery) {
-                creepName = 'Delivery: ', Game.time;
-                name = spawn.createCreepTypeNoWork(energy, 'delivery', creepName);
-            }
 
             else if (upgraderCount < spM.minUpgrader) {
+                console.log('Upgrader Selected.');
                 creepName = 'Upgrader: ' + Game.time; 
                 name = spawn.createCreepType1(energy, 'upgrader', creepName);
         }

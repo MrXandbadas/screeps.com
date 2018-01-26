@@ -59,5 +59,24 @@ module.exports = function() {
                 });    
         
             };
+            StructureSpawn.prototype.createCreepTypeNoMove = function (energy, roleName, creepName) {
+
+
+                let numberOfParts = Math.floor(energy / 200);
+                var body = [];
+                body.push(MOVE);
+                for (let qwq = 0; qwq < numberOfParts; qwq++) {
+                    body.push(CARRY);
+                }
+                for (let qwq = 0;qwq< numberOfParts; qwq++) {
+                    body.push(WORK);
+                }          
+                 return this.spawnCreep(body, creepName, { memory: {
+                     role: roleName,
+                     working: false 
+                 }
+                    });    
+            
+                };
 
 };
