@@ -9,7 +9,12 @@ var creep, creepRole, spawn, name, runRole,  selectedRole, energy, creepName, en
 
    var setMemorySpawn = function(spawn) {
     spawnMem.minBuilder = 2;
-    spawnMem.minDelivery = 0;    spawnMem.minMiner = 0;    spawnMem.minUpgrader = 4;    spawnMem.minRepairer = 3;    spawnMem.minHarvester = 3;    spawnMem.minWallRepairer = 1;
+    spawnMem.minDelivery = 1;
+    spawnMem.minMiner = 2;
+    spawnMem.minUpgrader = 4;
+    spawnMem.minRepairer = 3;
+    spawnMem.minHarvester = 1;
+    spawnMem.minWallRepairer = 1;
    };
 
 
@@ -25,7 +30,7 @@ module.exports.loop = function () {
         if (Game.creeps[name] == undefined) {
             delete Memory.creeps[name];
         }
-    }
+    } 
         let allMyCreeps = 0;
     for (let name in Game.creeps) {
         creep = Game.creeps[name];
@@ -71,36 +76,37 @@ module.exports.loop = function () {
             creepName = 'Harvester: ' + Game.time;
             name = spawn.backupHarvester(creepName);
         }
+//        console.log(allMyCreeps);
         
         if (!(spawn.spawning == null)) {
 
             console.log('Time: ',Game.time, ': ' ,'--- Not just a Debug 😉 ---');
-            console.log(spawn.spawning.name, 'will be spawned by ', spawn.spawning.remainingTime + Game.time);
+            console.log(spawn.spawning.name, 'will be spawned by ', spawn.spawning.remainingTime + Game.time, ' | Total Creeps: ', allMyCreeps);
             console.log('-------------');
         } // end of !(spawn.spawning)
         else if (harvesterCount < spM.minHarvester) {
-            console.log('Harvester Selected');
+            //console.log('Harvester Selected');
             creepName = 'Harvester: ' + Game.time;
             name = spawn.createCreepType1(energy, 'harvester', creepName);
         }
         else if (minerCount < spM.minMiner) {
-            console.log('Miner Selected');
+            //console.log('Miner Selected');
             creepName = 'Miner: ' + Game.time;
             name = spawn.createCreepTypeNoMove(energy, 'miner', creepName);
         }
         else if (deliveryCount < spM.minDelivery) {
-            console.log('Delivery Selected.')
+            //console.log('Delivery Selected.')
             creepName = 'Delivery: ', Game.time;
             name = spawn.createCreepTypeNoWork(energy, 'delivery', creepName);
         }
-            else if (builderCount < spM.minBuilder) {
-                console.log('Builder Selected.')
+        else if (builderCount < spM.minBuilder) {
+                //console.log('Builder Selected.')
                 creepName = 'Builder: ', Game.time;
                 name = spawn.createCreepType1(energy, 'builder', creepName);
-            }
+        }
 
-            else if (upgraderCount < spM.minUpgrader) {
-                console.log('Upgrader Selected.');
+        else if (upgraderCount < spM.minUpgrader) {
+                //console.log('Upgrader Selected.');
                 creepName = 'Upgrader: ' + Game.time; 
                 name = spawn.createCreepType1(energy, 'upgrader', creepName);
         }
@@ -114,5 +120,5 @@ module.exports.loop = function () {
 } // end of game.spawns for arg
 
 //console.log('At the end of the Game loop');
-} // end of exports.loop function {}
+}; // end of exports.loop function {}
 console.log('still running! Time is: ', Game.time);
