@@ -27,11 +27,11 @@ roleName.push('claimer');
 
 setMemorySpawn = function(spawn) {
     spawnMem.minBuilder = 2;
-    spawnMem.minDelivery = 1;
-    spawnMem.minMiner = 2;
-    spawnMem.minUpgrader = 4;
-    spawnMem.minRepairer = 3;
-    spawnMem.minHarvester = 1;
+    spawnMem.minDelivery = 0;
+    spawnMem.minMiner = 0;
+    spawnMem.minUpgrader = 2;
+    spawnMem.minRepairer = 2;
+    spawnMem.minHarvester = 3;
     spawnMem.minWallRepairer = 1;
 
     spawnMem.aStage = 1;

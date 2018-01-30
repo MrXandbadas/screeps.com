@@ -41,8 +41,8 @@ module.exports.loop = function () {
         spawn = Game.spawns[i];
         spawnMem = spawn.memory;
         calcSpawn(spawn);
-
-
+        spM = spawnMem;
+name = undefined;
 
         
         if (!(spawn.spawning == null)) {
@@ -51,15 +51,45 @@ module.exports.loop = function () {
 
 
         } // end of !(spawn.spawning)
-      else {
-            energy = spawn.room.energyAvailable;
+
+        console.log(harvesterCount);
+        console.log(spM.minHarvester);
+/*
+           energy = spawn.room.energyAvailable;
             countCreeps();
-            if (harvesterCount < 2) {
-                creepName = 'Harvester: ', Game.time;
-                name = spawn.backupHarvester(energy, creepName);
+            console.log(spM.minHarvesters);
+            let nameEnd = JSON.stringify(Game.time);
+            if (harvesterCount < spM.minHarvester) {
+                creepName = 'Harvester: ', nameEnd;
+                name = spawn.backupHarvester(creepName);
+                if (!(name == 0)) {
+                    let aab = Game.time;
+                    let creepName = "harvesterStan " + aab;
+                    name = spawn.backupHarvester(creepName);
+                    console.log(minHarvesters);
+                }
+            }
+            else if (builderCount < spM.minBuilder) {
+                creepName = 'Builder: ', Game.time;
+                name = spawn.createCreepType1(energy, 'builder', creepName);
+                if (!(name == 0)) {
+                    let aab = Game.time;
+                    let creepName = "BuilderBob " + aab;
+                    name = spawn.createCreepType1(energy, 'builder', creepName);
+                }
             }
 
-        }
+             else if (upgraderCount < spM.minUpgrader) {
+                creepName = 'Upgrader: ' + Game.time; 
+                name = spawn.createCreepType1(energy, 'upgrader', creepName);
+                if (!(name == 0)) {
+                    let aab = Game.time;
+                    let creepName = "Upgrader " + aab;
+                    name = spawn.createCreepType1(energy, 'upgrader', creepName);
+                }
+            }
+*/
+        
 
         // calling upon var spawn to create a new creep
 

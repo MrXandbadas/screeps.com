@@ -30,7 +30,7 @@ module.exports = function() {
        };
  
    
-    StructureSpawn.prototype.backupHarvester = function (energy, creepName) {
+    StructureSpawn.prototype.backupHarvester = function (creepName) {
     let numberOfParts = Math.floor(energy / 200);
     var body = [];
     for (let i = 0; i < numberOfParts; i++) {
