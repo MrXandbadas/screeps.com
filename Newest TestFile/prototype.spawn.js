@@ -1,8 +1,31 @@
 module.exports = function() {
+
+    calcSpawn: function (spawn) {
+       if (spawnMem.aStage == undefined) {
+        setMemorySpawn(spawn);
+       }
+       else {
+        if (spawnMem.aStage == 1) {
+            if (harvesterCount < spawnMem.minHarvester && 2) {
+                creepName = 'Harvester: ', Game.time;
+                name = spawn.backupHarvester(energy, creepName)
+            }
+            else if (builderCount < spM.minBuilder) {
+                creepName = 'Builder: ', Game.time;
+                name = spawn.createCreepType1(energy, 'builder', creepName);
+        }
+
+        else if (upgraderCount < spM.minUpgrader) {
+                creepName = 'Upgrader: ' + Game.time; 
+                name = spawn.createCreepType1(energy, 'upgrader', creepName);
+        }
+        }
+       };
+    }
  
    
-    StructureSpawn.prototype.backupHarvester = function (creepName) {
-    let numberOfParts = Math.floor(300 / 200);
+    StructureSpawn.prototype.backupHarvester = function (energy, creepName) {
+    let numberOfParts = Math.floor(energy / 200);
     var body = [];
     for (let i = 0; i < numberOfParts; i++) {
         body.push(WORK);
@@ -41,7 +64,7 @@ module.exports = function() {
     
         };
 
-        StructureSpawn.prototype.createCreepTypeNoWork = function (energy, roleName, creepName) {
+    StructureSpawn.prototype.createCreepTypeNoWork = function (energy, roleName, creepName) {
 
 
             let numberOfParts = Math.floor(energy / 200);
@@ -59,7 +82,7 @@ module.exports = function() {
                 });    
         
             };
-            StructureSpawn.prototype.createCreepTypeNoMove = function (energy, roleName, creepName) {
+    StructureSpawn.prototype.createCreepTypeNoMove = function (energy, roleName, creepName) {
 
 
                 let numberOfParts = Math.floor(energy / 200);
