@@ -7,9 +7,13 @@ module.exports = {
 //calling roleName and its index for its role
 
 var creepRole = creep.memory.role;
+roleName = [];
+roleName.push('harvester', 'repairer', 'wallRepairer', 'builder', 'upgrader','delivery', 'miner');
+console.log(JSON.stringify(roleName));
     if (creepRole == roleName[0]) {
         let roleHarvester = require('role.harvester');
         roleHarvester.run(creep);
+        console.log('harvester');
     }
     else if (creepRole == roleName[4]) {
         let roleUpgrader = require('role.upgrader')

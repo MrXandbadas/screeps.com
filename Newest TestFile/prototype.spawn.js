@@ -1,15 +1,22 @@
 module.exports = function() {
 
-    calcSpawn: function (spawn) {
-       if (spawnMem.aStage == undefined) {
+    calcSpawn = function(spawn, selectedRole) {
+      /* if (spawnMem.aStage == undefined) {
+
         setMemorySpawn(spawn);
        }
        else {
         if (spawnMem.aStage == 1) {
-            if (harvesterCount < spawnMem.minHarvester && 2) {
+            countCreeps();
+            energy = spawnMem.myEnergy;
+            if (harvesterCount < 2) {
                 creepName = 'Harvester: ', Game.time;
-                name = spawn.backupHarvester(energy, creepName)
-            }
+                let role = spawnMem.selectedRole;
+                console.log(JSON.stringify(energy));
+           // role.push('harvester');
+                console.log('inside return FNC');
+            };
+        }
             else if (builderCount < spM.minBuilder) {
                 creepName = 'Builder: ', Game.time;
                 name = spawn.createCreepType1(energy, 'builder', creepName);
@@ -19,9 +26,8 @@ module.exports = function() {
                 creepName = 'Upgrader: ' + Game.time; 
                 name = spawn.createCreepType1(energy, 'upgrader', creepName);
         }
-        }
+        }*/
        };
-    }
  
    
     StructureSpawn.prototype.backupHarvester = function (energy, creepName) {

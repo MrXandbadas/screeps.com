@@ -1,19 +1,20 @@
 require('prototype.varconfig')();
-var usrFnc = require('prototype.usrfnc');
 require('prototype.spawn')();
+var usrFnc = require('prototype.usrfnc');
+
+
+baseVar();
+roleNameSet();
 
 
 
 
 
 
-
-
-
-runRole = function (ab, creep, creepRole) {
-    if (creepRole = ab) {
+runRole = function (ab, creep, roleName) {
+    if (creep.memory.role = ab) {
         usrFnc.roleCall(creep, roleName);
-    }
+    };
 };
 
 module.exports.loop = function () {
@@ -26,12 +27,13 @@ module.exports.loop = function () {
         let allMyCreeps = 0;
     for (let name in Game.creeps) {
         creep = Game.creeps[name];
+        roleName = creep.memory.role;
         allMyCreeps = allMyCreeps + 1 //CountingCreeps :D
         
-
+        roleNameSet();
         for (let indexa = 0; indexa < roleName.length; ++indexa) {
             var ab = roleName[indexa];
-            runRole(ab, creep, creepRole); //fucking is this a higherorder function?? D:
+            runRole(ab, creep, roleName); //fucking is this a higherorder function?? D:
             };
     } //end of for name in Game.creeps
 //console.log(allMyCreeps, ' Creeps in Total');
@@ -40,25 +42,24 @@ module.exports.loop = function () {
         spawnMem = spawn.memory;
         calcSpawn(spawn);
 
-        //console.log(harvesterCount);
 
-        /* having trouble with spawning a creep without there being a creep first D: Maybe I should make a mock creep?  */
 
-        if (allMyCreeps < 2) {
-            console.log('due to ', allMyCreeps ,' number of creeps harvester will be spawned');
-            creepName = 'Harvester: ' + Game.time;
-            name = spawn.backupHarvester(creepName);
-        }
-//        console.log(allMyCreeps);
         
         if (!(spawn.spawning == null)) {
 
-            notDebug(spawn);
-        } // end of !(spawn.spawning)
-      
-        
+            notDebug(spawn, allMyCreeps);
 
-      
+
+        } // end of !(spawn.spawning)
+      else {
+            energy = spawn.room.energyAvailable;
+            countCreeps();
+            if (harvesterCount < 2) {
+                creepName = 'Harvester: ', Game.time;
+                name = spawn.backupHarvester(energy, creepName);
+            }
+
+        }
 
         // calling upon var spawn to create a new creep
 
