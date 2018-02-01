@@ -62,7 +62,7 @@ module.exports.loop = function () {
         spM = spawnMem;
         name = undefined;
        
-        console.log(creep.room.storage)
+        
         if (!(spawn.spawning == null)) {
 
             notDebug(spawn, allMyCreeps);

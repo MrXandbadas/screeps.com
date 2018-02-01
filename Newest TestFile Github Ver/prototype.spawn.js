@@ -15,7 +15,7 @@ module.exports = function() {
                     usrSpawn();
                 }*/
                 
-            if (energy > 500) { 
+            if (energy > 350) { 
                 console.log("Spawning", energy);   
                 if (harvesterCount < spM.minHarvester) {
                     harvester1Spawn(selectedRole)  
@@ -56,7 +56,7 @@ module.exports = function() {
                     delivery1Spawn(selectedRole);
                 }
                 if (minerCount < 5) {
-                    console.log('yers')
+
                     miner1Spawn(selectedRole);
                 }
                 else if (builderCount < spM.minBuilder) {
@@ -88,11 +88,9 @@ module.exports = function() {
             selectedRole.push('builder');
         }
         miner1Spawn = function(selectedRole) {
-            console.log("yeye")
             creepName = 'Miner: ' + Game.time; 
                     name = spawn.createMiner1(energy, 'miner', creepName);
                     selectedRole.push('miner');
-                    console.log(name)
         }
         delivery1Spawn = function(selectedRole) {
             creepName = 'Delivery: ' + Game.time; 

@@ -46,7 +46,7 @@ module.exports = {
             });
 
             if (container == undefined) {
-                const target = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
+                const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
 if(target) {
     if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
         creep.moveTo(target);
