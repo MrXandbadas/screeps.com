@@ -24,7 +24,7 @@ module.exports = function() {
                     upgrader1Spawn(selectedRole);
                 }
                 else if (deliveryCount < spawnMem.minDelivery) {
-                    deliverySpawn(selectedRole)
+                    delivery1Spawn(selectedRole)
 
 
                 }                
@@ -70,7 +70,7 @@ module.exports = function() {
                     upgrader1Spawn(selectedRole);
                 }
             }
-            console.log(energy);
+            console.log('Amount of Energy: ' + energy);
             }
 
         }
@@ -124,7 +124,7 @@ module.exports = function() {
        StructureSpawn.prototype.createClaimer = function () {
             
          return this.spawnCreep([WORK,CLAIM,CARRY], 'Claimer', { memory: {
-             role: 'claimer', tagret: 'E4N49'
+             role: 'claimer', target: 'E4N49'
          }
         });
     };
@@ -175,10 +175,9 @@ module.exports = function() {
         StructureSpawn.prototype.createMiner1 = function (energy, roleName, creepName) {
     
                   
-         return this.spawnCreep([WORK,WORK,WORK,WORK,WORK,WORK,MOVE], creepName, { memory: {
-            role: 'miner'
-        }
-       });
+         return this.spawnCreep([WORK, WORK, WORK, WORK, WORK, MOVE], creepName,
+                                    { memory: { role: 'miner'} });
+        
    };
 
     StructureSpawn.prototype.createCreepTypeNoWork = function (energy, roleName, creepName) {
@@ -238,7 +237,7 @@ module.exports = function() {
                          role: roleName,
                          working: false,
                          home: spawnMem.roomName, 
-                         target: 'E3N49',
+                         target: 'E2N48',
                          sourceIndex: ''
                      }
                         });    

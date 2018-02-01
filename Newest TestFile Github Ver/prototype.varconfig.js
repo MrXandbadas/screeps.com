@@ -47,7 +47,7 @@ roleNameSet = function(spawnMem, roleName, roleNamex) {
         
 }*/
     else if (spawnMem.aStage == 2){
-        console.log('SpawnMem Stage at 2!!');
+        console.log('spawnMem Base Stage at level ' + spawnMem.aStage + '!!');
 
     }
 
@@ -61,11 +61,11 @@ roleNameSet = function(spawnMem, roleName, roleNamex) {
 
 setMemorySpawn = function(spawn) {
     spawnMem.minBuilder = 1;
-    spawnMem.minDelivery = 5;
-    spawnMem.minMiner = 4;
+    spawnMem.minDelivery = 3;
+    spawnMem.minMiner = 2;
     spawnMem.minUpgrader = 2;
     spawnMem.minRepairer = 2;
-    spawnMem.minHarvester = 2;
+    spawnMem.minHarvester = 3;
     spawnMem.minWallRepairer = 1;
     spawnMem.stageChanger;
     spawnMem.roomName = spawn.room.name;
@@ -73,12 +73,12 @@ setMemorySpawn = function(spawn) {
 
     spawnMem.myArr = [];
 
-    spawnMem.aStage = 1;
+    spawnMem.aStage = 2;
     spawnMem.selectedRole = [];
     if (spawnMem.aStage == 2){ 
     spawnMem.minBuilder = 1;
     spawnMem.minDelivery = 2;
-    spawnMem.minMiner = 4;
+    spawnMem.minMiner = 2;
     spawnMem.minUpgrader = 2;
     spawnMem.minRepairer = 2;
     spawnMem.minHarvester = 0;
