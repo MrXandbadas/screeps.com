@@ -14,18 +14,20 @@ module.exports = function() {
                 if (i == 1) {
                     usrSpawn();
                 }*/
-                
+
             if (energy > 350) { 
-                console.log("Spawning", energy);   
                 if (harvesterCount < spM.minHarvester) {
                     harvester1Spawn(selectedRole)  
                     
+                }
+                else if (upgraderCount < 3) {
+                    upgrader1Spawn(selectedRole);
                 }
                 else if (deliveryCount < spawnMem.minDelivery) {
                     deliverySpawn(selectedRole)
 
 
-                }
+                }                
         
                 else if (builderCount < spM.minBuilder) {
                     builder1Spawn(selectedRole)
@@ -34,16 +36,14 @@ module.exports = function() {
                     repairer1Spawn(selectedRole)
                 }
 
-                else if (upgraderCount < 3) {
-                    upgrader1Spawn(selectedRole);
-                }
+                
                 else if (longDistanceCount < 6
             ) {
                 
 
                    longDistance1Spawn(selectedRole);
                 }
-                } else {console.log(energy)}
+                } else {}
 
             } else if (spawnMem.aStage = 2) {
                 countCreeps();

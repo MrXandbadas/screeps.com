@@ -65,7 +65,7 @@ setMemorySpawn = function(spawn) {
     spawnMem.minMiner = 4;
     spawnMem.minUpgrader = 2;
     spawnMem.minRepairer = 2;
-    spawnMem.minHarvester = 1;
+    spawnMem.minHarvester = 2;
     spawnMem.minWallRepairer = 1;
     spawnMem.stageChanger;
     spawnMem.roomName = spawn.room.name;
