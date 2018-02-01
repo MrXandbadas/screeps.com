@@ -6,9 +6,10 @@ var usrFnc = require('prototype.creep', 'prototype.usrfnc');
 baseVar();
 
 
-runRole = function (ab, creep, rN) {
-    if (creep.memory.role == ab) {
-        usrFnc.roleCall(creep, rN, ab);
+runRole = function (creep) {
+    if (creep.memory.role == creep.memory.role) {
+        usrFnc.roleCall(creep);
+      //  console.log('yes', creep)
     }
 };
 runClear = function() {for (let name in Memory.creeps) {
@@ -40,7 +41,7 @@ module.exports.loop = function () {
         for (let indexa = 0; indexa < rN.length; ++indexa) {
             var al = rN[indexa];
             var ab = al.role;
-            runRole(ab, creep);
+            runRole(creep);
             };
             
     } //end of for name in Game.creeps
@@ -54,7 +55,7 @@ module.exports.loop = function () {
        // let roleNamex = roleName.length;
         setMemorySpawn(spawn);
         roleNameSet(spawnMem);
-        calcSpawn(spawn); //spawning process
+       calcSpawn(spawn); //spawning process
         countCreeps();
         
         //console.log(JSON.stringify(selectedRole));

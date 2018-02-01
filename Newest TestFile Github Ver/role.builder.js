@@ -6,6 +6,15 @@ module.exports = {
 
     // a function to run the logic for this role
     run: function (creep) {
+        if (creep.memory.target != undefined) {
+        const route = Game.map.findRoute(creep.room, creep.memory.target);
+        if(route.length > 0) {
+           // console.log('Now heading to room '+route[0].room);
+            const exit = creep.pos.findClosestByRange(route[0].exit);
+            creep.moveTo(exit);
+        }
+    }
+
 
         if (!creep.memory.working) {
             creep.memory.working = false;

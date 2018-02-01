@@ -7,15 +7,22 @@ module.exports = function() {
         setMemorySpawn(spawn);
        }
        else {
+           
             if (spawnMem.aStage == 1) {
                 countCreeps();
+                
                 energy = spawnMem.myEnergy;
               /*  let i = 1;
                 if (i == 1) {
                     usrSpawn();
-                }*/
+                }*/ 
+                let counter = 10;
+                for (let i = 0; i < counter; ++i ) {
+                    console.log(counter, i);
+            if (energy > 300) { 
 
-            if (energy > 350) { 
+
+
                 if (harvesterCount < spM.minHarvester) {
                     harvester1Spawn(selectedRole)  
                     
@@ -43,20 +50,28 @@ module.exports = function() {
 
                    longDistance1Spawn(selectedRole);
                 }
-                } else {}
+                } else {} 
+                --counter;
 
-            } else if (spawnMem.aStage = 2) {
+            } }
+            else if (spawnMem.aStage == 9) { 
+                usrSpawn();
+            }
+            else if (spawnMem.aStage == 2) {
+
+                spawnMem.claimRoom = false;
+                if (spawnMem.claimRoom == true) {
+                    usrSpawn();
+                }
+
                 countCreeps();
-                
                 energy = spawnMem.myEnergy;
 
-                if (energy > 600) {
-                    
+                if (energy > 600) {   
                 if (deliveryCount < spM.minDelivery) {
                     delivery1Spawn(selectedRole);
                 }
-                if (minerCount < 5) {
-
+                if (minerCount < spm.minMiner) {
                     miner1Spawn(selectedRole);
                 }
                 else if (builderCount < spM.minBuilder) {
@@ -70,9 +85,8 @@ module.exports = function() {
                     upgrader1Spawn(selectedRole);
                 }
             }
-            console.log(energy);
-            }
-
+            //builderRoomSpawn(selectedRole);
+        }
         }
    // return selectedRole.       
 
@@ -85,6 +99,11 @@ module.exports = function() {
         builder1Spawn = function(selectedRole) {
             creepName = 'Builder: ' + Game.time;
             name = spawn.createCreepType1(energy, 'builder', creepName);
+            selectedRole.push('builder');
+        }
+        builderRoomSpawn = function(selectedRole) {
+            creepName = 'Builder: ' + Game.time;
+            name = spawn.createCreepType1(energy, 'builder', creepName, 'E4N49');
             selectedRole.push('builder');
         }
         miner1Spawn = function(selectedRole) {
@@ -113,18 +132,20 @@ module.exports = function() {
 
                     name = spawn.createCreepLongDistance(energy, 'longDistance', creepName);
                     selectedRole.push('longDistance');
-                    console.log(name)
+
         }
  
    
        usrSpawn = function(){
-        name = spawn.createClaimer();
+           creepName = ' Claimer! MINE ' + Game.time;
+        name = spawn.createClaimer(creepName);
+
        }
 
-       StructureSpawn.prototype.createClaimer = function () {
+       StructureSpawn.prototype.createClaimer = function (creepName) {
             
-         return this.spawnCreep([WORK,CLAIM,CARRY], 'Claimer', { memory: {
-             role: 'claimer', tagret: 'E4N49'
+         return this.spawnCreep([WORK,CLAIM,CARRY,MOVE], creepName , { memory: {
+             role: 'claimer', target: 'E4N49'
          }
         });
     };
@@ -150,7 +171,7 @@ module.exports = function() {
     });
     };
 
-    StructureSpawn.prototype.createCreepType1 = function (energy, roleName, creepName) {
+    StructureSpawn.prototype.createCreepType1 = function (energy, roleName, creepName, target) {
 
 
         let numberOfParts = Math.floor(energy / 200);
@@ -166,7 +187,8 @@ module.exports = function() {
         }          
          return this.spawnCreep(body, creepName, { memory: {
              role: roleName,
-             working: false 
+             working: false,
+             target: target 
          }
             });    
     

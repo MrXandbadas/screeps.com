@@ -39,7 +39,7 @@ stageUpdate = function()  {
 
 roleNameSet = function(spawnMem, roleName, roleNamex) {
     if (!(spawnMem.aStage != undefined)){
-        spawnMem.aStage = 1;
+        spawnMem.aStage = 1 ;
     } 
    /* if (spawnMem.aStage == 1){
         for(let wqw = 0; wqw < roleNamex; ++wqw) {       let rolename = function() { roleName.shift()}
@@ -61,10 +61,10 @@ roleNameSet = function(spawnMem, roleName, roleNamex) {
 
 setMemorySpawn = function(spawn) {
     spawnMem.minBuilder = 1;
-    spawnMem.minDelivery = 5;
-    spawnMem.minMiner = 4;
-    spawnMem.minUpgrader = 2;
-    spawnMem.minRepairer = 2;
+    spawnMem.minDelivery = 2;
+    spawnMem.minMiner = 2;
+    spawnMem.minUpgrader = 1;
+    spawnMem.minRepairer = 1;
     spawnMem.minHarvester = 2;
     spawnMem.minWallRepairer = 1;
     spawnMem.stageChanger;
@@ -78,10 +78,10 @@ setMemorySpawn = function(spawn) {
     if (spawnMem.aStage == 2){ 
     spawnMem.minBuilder = 1;
     spawnMem.minDelivery = 2;
-    spawnMem.minMiner = 4;
-    spawnMem.minUpgrader = 2;
+    spawnMem.minMiner = 2;
+    spawnMem.minUpgrader = 1;
     spawnMem.minRepairer = 2;
-    spawnMem.minHarvester = 0;
+    spawnMem.minHarvester = 2;
     spawnMem.minWallRepairer = 1;
     };
 
