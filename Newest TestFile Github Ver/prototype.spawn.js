@@ -24,7 +24,7 @@ module.exports = function() {
                     upgrader1Spawn(selectedRole);
                 }
                 else if (deliveryCount < spawnMem.minDelivery) {
-                    deliverySpawn(selectedRole)
+                    delivery1Spawn(selectedRole)
 
 
                 }                
