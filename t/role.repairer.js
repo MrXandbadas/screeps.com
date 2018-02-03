@@ -14,11 +14,6 @@ var roleRepairer = {
             creep.memory.repairing = true;
             creep.say('Can i Fix you?', true);
         }
-
-        if(!creep.memory.target) {
-            creep.memory.target = creep.room.name;
-        }
-
 // Check if repairing is set to true or not. if true repair 
            if (creep.memory.repairing == true) {
 // find closest structure with less than max hits
@@ -39,31 +34,26 @@ var roleRepairer = {
                     creep.moveTo(structure);
                 }
             }
-            // if we can't find one   
+            // if we can't find one
+            else {
+                // look for construction sites
+                let roleBuilder = require('role.builder')
+                roleBuilder.run(creep);
+            }   
             
     }
-    
-    if (creep.memory.working == false) {
-        var target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-        creep.memory.target = target;
-    // try to harvest energy, if the source is not in range
-    if (creep.harvest(creep.memory.target) == ERR_NOT_IN_RANGE) {
-        // move towards the source
-        creep.moveTo(creep.memory.target);
+    else if (!creep.memory.repairing == true) {
         
-    }
-    }
-    else { 
- 
-        let roleBuilder = require('role.builder')
-        roleBuilder.run(creep);
-    /*
+        let creepQuick = require('prototype.creep');
+        creepQuick.energyCollection(creep);
+        
+    } else {
         var container = creep.pos.findClosestByPath(FIND_SOURCES);
             // try to harvest energy, if the source is not in range
             if (creep.harvest(continer) == ERR_NOT_IN_RANGE) {
                 // move towards the source
                 creep.moveTo(container);
-            }*/
+                }
             }
         
     

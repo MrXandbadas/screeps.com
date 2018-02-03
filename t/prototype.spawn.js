@@ -1,9 +1,6 @@
-//var manualGlobal = require('prototype.usrFnc');
-
 module.exports = function() {
-    var home = 'E2N49'
 
-   calcSpawn = function(spawn, selectedRole) {
+    calcSpawn = function(spawn, selectedRole) {
         selectedRole = [];
        if (spawnMem.aStage == undefined) {
 
@@ -47,10 +44,6 @@ module.exports = function() {
                 else if (builderCount < spM.minBuilder) {
                     builder1Spawn(selectedRole)
                 }
-               /* else if (builderCount < 20) {
-                    builderRoomSpawn(selectedRole)
-                }*/
-                
                 else if (repairerCount < spM.minRepairer) {
                     repairer1Spawn(selectedRole)
                 }
@@ -116,7 +109,7 @@ module.exports = function() {
         }
         builder1Spawn = function(selectedRole) {
             creepName = 'Builder: ' + Game.time;
-            name = spawn.createCreepType1(energy, 'builder', creepName, home);
+            name = spawn.createCreepType1(energy, 'builder', creepName);
             selectedRole.push('builder');
         }
         builderRoomSpawn = function(selectedRole) {
@@ -137,13 +130,8 @@ module.exports = function() {
         }
         upgrader1Spawn = function(selectedRole) {
             creepName = 'Upgrader: ' + Game.time; 
-                    name = spawn.createCreepType1(energy, 'upgrader', creepName, home);
+                    name = spawn.createCreepType1(energy, 'upgrader', creepName);
                     selectedRole.push('upgrader');
-        }
-        upgraderRoomSpawn = function(selectedRole) {
-            creepName = 'HomeLandUpgrader: ' + Game.time;
-            name = spawn.createCreepType1(energy, 'upgrader', creepName, 'E4N49');
-            selectedRole.push('upgrader');
         }
         repairer1Spawn = function(selectedRole) {
             creepName = 'Repairer: ' + Game.time; 
@@ -268,7 +256,7 @@ module.exports = function() {
                 StructureSpawn.prototype.createCreepLongDistance = function (energy, roleName, creepName) {
 
 
-                    let numberOfParts = Math.floor(500 / 200);
+                    let numberOfParts = Math.floor(900 / 200);
                     var body = [];
                     for (let qwq = 0; qwq < numberOfParts; qwq++) {
                         body.push(WORK);

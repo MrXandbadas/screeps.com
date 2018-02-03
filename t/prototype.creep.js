@@ -105,62 +105,6 @@ var creepRole = creep.memory.role;
         
         }
     
-    },
-
-    pickupDropped: (creep) => {
-
-        
-        
-        const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-           /* if(creep.carry.energy == 0) {
-                
-                    var source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-                        // try to harvest energy, if the source is not in range
-                        if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                            // move towards the source
-                            creep.moveTo(source);}
-                    
-            
-            }*/ if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-                const path = creep.pos.findPathTo(target);
-                creep.memory.path = path;
-                Memory.path = Room.serializePath(path);
-                creep.moveByPath(Memory.path);
-                    }
-                
-
-
-    },
-    harvestSource: (creep) => {
-
-        
-        
-        var source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-        // try to harvest energy, if the source is not in range                    
-            
-             if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
-               
-                creep.moveTo(source);
-                    }
-                
-
-
-    },
-    builderThenRepair : (creep) => {
-        var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-            
-        if (constructionSite != undefined) {
-            // try to build, if the constructionSite is not in range
-            if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
-                // move towards the constructionSite
-                creep.moveTo(constructionSite);
-            }
-        }
-        // if no constructionSite is found
-        else {
-            // go upgrading the controller
-            roleUpgrader.run(creep);
-        }
     }
             
 

@@ -1,25 +1,24 @@
-var creepFnc = require('prototype.creep');
 module.exports = {
     // a function to run the logic for this role
     /* @param {Creep} creep */
     run: function (creep) {
 
-        if (!creep.memory.delivery) {
-            creep.memory.delivery = false;
+        if (!creep.memory.working) {
+            creep.memory.working = false;
         }
         // if creep is bringing energy to a structure but has no energy left
-        if (creep.memory.delivery == true && creep.carry.energy == 0) {
+        if (creep.memory.working == true && creep.carry.energy == 0) {
             // switch state
-            creep.memory.delivery = false;
+            creep.memory.working = false;
         }
         // if creep is harvesting energy but is full
-        else if (creep.memory.delivery == false && creep.carry.energy == creep.carryCapacity) {
+        else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
             // switch state
-            creep.memory.delivery = true;
+            creep.memory.working = true;
         }
 
         // if creep is supposed to transfer energy to a structure
-        if (creep.memory.delivery == true) {
+        if (creep.memory.working == true) {
             // find closest spawn, extension or tower which is not full
             var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
                 // the second argument for findClosestByPath is an object which takes
@@ -45,46 +44,30 @@ module.exports = {
             }
         }
         // if creep is supposed to get energy
-        else if (creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                    filter: s => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0
-                }) == undefined) {
+        else {
+            // find closest container
+            let container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter: s => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0
+            });
 
-                    const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-        
-                if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-                const path = creep.pos.findPathTo(target);
-                creep.memory.path = path;
-                Memory.path = Room.serializePath(path);
-                creep.moveByPath(Memory.path);
-                    }
-                    ;
+            if (container == undefined) {
+                const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+if(target) {
+    if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
+        creep.moveTo(target);
+    }
+}
+                container = creep.room.storage;
+            }
+
+            // if one was found
+            if (container != undefined) {
+                // try to withdraw energy, if the container is not in range
+                if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    // move towards it
+                    creep.moveTo(container);
                 }
-            
-                
-
-
-
-
-    
-                // if one was found
-                else if (creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) != undefined) {
-
-                    var target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-                    const path = creep.pos.findPathTo(target);
-                creep.memory.path = path;
-                Memory.path = Room.serializePath(path);
-                creep.moveByPath(Memory.path);
-                }
-           
-
-
-
-
-
-
-
-
-
-
+            }
         }
+    }
 };

@@ -27,7 +27,6 @@ module.exports.loop = function () {
     allMyCreeps = 0;
     for (let name in Game.creeps) {
         creep = Game.creeps[name];
-        creep.memory.currentRoom = creep.room.name;
  
         roleName = creep.memory.role;
         if (name.length > allMyCreeps) {
@@ -42,20 +41,15 @@ module.exports.loop = function () {
         for (let indexa = 0; indexa < rN.length; ++indexa) {
             var al = rN[indexa];
             var ab = al.role;
-            var abCounter = []
-            abCounter.push(ab , al.roleCount)
             runRole(creep);
             };
             
             
     } //end of for name in Game.creeps
 
-    for (let i in Game.spawns) {
-        let nene = Game.spawns.length;
-       
-  
+    for (let i in Game.spawns) { 
         spawn = Game.spawns[i];
-        console.log(Game.spawns[i], 'hi')
+        
         HOME = spawn.room.name
         spawnMem = spawn.memory;
         baseVarRole();
