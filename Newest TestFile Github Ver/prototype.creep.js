@@ -159,6 +159,7 @@ var creepRole = creep.memory.role;
         // if no constructionSite is found
         else {
             // go upgrading the controller
+            let roleUpgrader = require('role.upgrader');
             roleUpgrader.run(creep);
         }
     }

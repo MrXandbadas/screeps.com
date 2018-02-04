@@ -1,4 +1,5 @@
 var roleDelivery = require('role.delivery');
+var creepFnc = require('prototype.creep');
 module.exports = {
     // a function to run the logic for this role
     run: function (creep) {
@@ -48,14 +49,8 @@ module.exports = {
             }
         }
         // if creep is supposed to harvest energy from source
-        else if (!creep.memory.working == true){
+        else if (creep.memory.working == false){
 
-            source = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-            if(source) {
-            if(creep.pickup(source) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(source);
-            }
-            }
             // find closest source
             var source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
             // try to harvest energy, if the source is not in range

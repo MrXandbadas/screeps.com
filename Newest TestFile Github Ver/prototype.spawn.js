@@ -1,7 +1,7 @@
 //var manualGlobal = require('prototype.usrFnc');
 
 module.exports = function() {
-    var home = 'E2N49'
+    
 
    calcSpawn = function(spawn, selectedRole) {
         selectedRole = [];
@@ -12,7 +12,7 @@ module.exports = function() {
        else {
            
             if (spawnMem.aStage == 1) {
-                countCreeps();
+                countCreeps(spawn);
                 
                 energy = spawnMem.myEnergy;
               /*  let i = 1;
@@ -24,39 +24,41 @@ module.exports = function() {
                     
                     if (i > 1) {
                         break;
-                    } else 
+                    } else
                     
 
-            if (energy > 300) { 
+            if (energy > 290) { 
 
+                if (spawnMem.claimRoom == true) {
+                    usrSpawn();
+                }
 
-
-                if (harvesterCount < spM.minHarvester) {
+                if (spawnMem.harvesterCount < spM.minHarvester) {
                     harvester1Spawn(selectedRole)  
                     
                 }
-                else if (upgraderCount < spM.minUpgrader) {
+                else if (spawnMem.upgraderCount < spM.minUpgrader) {
                     upgrader1Spawn(selectedRole);
                 }
-                else if (deliveryCount < spawnMem.minDelivery) {
+                else if (spawnMem.deliveryCount < spawnMem.minDelivery) {
                     delivery1Spawn(selectedRole)
 
 
                 }                
         
-                else if (builderCount < spM.minBuilder) {
+                else if (spawnMem.builderCount < spM.minBuilder) {
                     builder1Spawn(selectedRole)
                 }
                /* else if (builderCount < 20) {
                     builderRoomSpawn(selectedRole)
                 }*/
                 
-                else if (repairerCount < spM.minRepairer) {
+                else if (spawnMem.repairerCount < spM.minRepairer) {
                     repairer1Spawn(selectedRole)
                 }
 
                 
-                else if (longDistanceCount < 6) {
+                else if (spawnMem.longDistanceCount < 6) {
                 
 
                    longDistance1Spawn(selectedRole);
@@ -70,7 +72,7 @@ module.exports = function() {
             }
             else if (spawnMem.aStage == 2) {
 
-                spawnMem.claimRoom = false;
+                
                 if (spawnMem.claimRoom == true) {
                     usrSpawn();
                 }
@@ -116,44 +118,34 @@ module.exports = function() {
         }
         builder1Spawn = function(selectedRole) {
             creepName = 'Builder: ' + Game.time;
-            name = spawn.createCreepType1(energy, 'builder', creepName, home);
-            selectedRole.push('builder');
-        }
-        builderRoomSpawn = function(selectedRole) {
-            creepName = 'Builder: ' + Game.time;
-            name = spawn.createCreepType1(energy, 'builder', creepName, 'E4N49');
+            name = spawn.createCreepType1(energy, 'builder', creepName, creep.room.name);
             selectedRole.push('builder');
         }
         miner1Spawn = function(selectedRole) {
             creepName = 'Miner: ' + Game.time; 
-                    name = spawn.createMiner1(energy, 'miner', creepName);
+                    name = spawn.createMiner1(energy, 'miner', creepName, creep.room.name);
                     selectedRole.push('miner');
         }
         delivery1Spawn = function(selectedRole) {
             creepName = 'Delivery: ' + Game.time; 
-                    name = spawn.createCreepTypeCarryMove(energy, 'delivery', creepName);
+                    name = spawn.createCreepTypeCarryMove(energy, 'delivery', creepName, creep.room.name);
                     selectedRole.push('delivery');
 
         }
         upgrader1Spawn = function(selectedRole) {
             creepName = 'Upgrader: ' + Game.time; 
-                    name = spawn.createCreepType1(energy, 'upgrader', creepName, home);
+                    name = spawn.createCreepType1(energy, 'upgrader', creepName, creep.room.name);
                     selectedRole.push('upgrader');
-        }
-        upgraderRoomSpawn = function(selectedRole) {
-            creepName = 'HomeLandUpgrader: ' + Game.time;
-            name = spawn.createCreepType1(energy, 'upgrader', creepName, 'E4N49');
-            selectedRole.push('upgrader');
         }
         repairer1Spawn = function(selectedRole) {
             creepName = 'Repairer: ' + Game.time; 
-                    name = spawn.createCreepType1(energy, 'repairer', creepName);
+                    name = spawn.createCreepType1(energy, 'repairer', creepName,creep.room.name);
                     selectedRole.push('repairer');
         }
         longDistance1Spawn = function(selectedRole) {
             creepName = ' Weary Traveler: ' + Game.time; 
 
-                    name = spawn.createCreepLongDistance(energy, 'longDistance', creepName);
+                    name = spawn.createCreepLongDistance(energy, 'longDistance', creepName,creep.room.name);
                     selectedRole.push('longDistance');
 
         }

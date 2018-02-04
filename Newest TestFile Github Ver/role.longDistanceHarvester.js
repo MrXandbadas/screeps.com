@@ -28,14 +28,18 @@ module.exports = {
                         && s.energy < s.energyCapacity
                 });
 
+                structure = creep.room.storage;
+
                 // if we found one
                 if (structure != undefined) {
                     // try to transfer energy, if it is not in range
+  
                     if (creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                         // move towards it
                         creep.moveTo(structure);
                     }
                 }
+
             }
             // if not in home room...
             else {

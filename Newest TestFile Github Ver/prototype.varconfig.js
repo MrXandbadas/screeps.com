@@ -4,24 +4,33 @@ module.exports = function() {
     var creep, creepRole, spawn, name, runRole,  selectedRole, energy, creepName, energyCap, allMyCreeps, minCounter, spawnMem, spM, calcSpawn, setMemorySpawn, aStage, stageUpdate,roleName,target, sourceIndex, HOME, selRoleName, roleCount;
     }
     //please leave Harvester, upgrader and builder as the first 3
-   baseVarRole = () => {
-        selRoleName = [
-            { role: 'harvester', currentRoom: '', roleCount: (_.sum(Game.creeps, (c) => c.memory.role == 'harvester'))},
-            { role: 'upgrader', currentRoom: '', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'upgrader')},
-            { role: 'builder', currentRoom: '', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'builder')},
-            { role: 'repairer', currentRoom: '', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'repairer')},
-            { role: 'wallRepairer', currentRoom: '', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer')},
-            { role: 'delivery', currentRoom: '', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'delivery')},
-            { role: 'miner', currentRoom: '', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'miner')},
-            { role: 'longDistance', currentRoom: '', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'longDistance')}
+   baseVarRole = function(spawn) {
 
+    if (!spawn) {
+        spawnMem = creep.room.name
+    } else {
+        spawnMem = spawn.room.name;
+    }
+       
+    
+        selRoleName = [
+            { role: 'harvester', currentRoom: spawnMem, roleCount: (_.sum(Game.creeps, (c) => c.memory.role == 'harvester'))},
+            { role: 'upgrader', currentRoom: spawnMem, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'upgrader')},
+            { role: 'builder', currentRoom: spawnMem, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'builder')},
+            { role: 'repairer', currentRoom: spawnMem, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'repairer')},
+            { role: 'wallRepairer', currentRoom: spawnMem, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer')},
+            { role: 'delivery', currentRoom: spawnMem, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'delivery')},
+            { role: 'miner', currentRoom: spawnMem, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'miner')},
+            { role: 'longDistance', currentRoom: spawnMem, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'longDistance')}
+
+            
             ];
 
     
 
 
    
-
+            let rN = selRoleName;
    roleName = [];
 
         };
@@ -60,6 +69,11 @@ roleNameSet = function(spawnMem, roleName, roleNamex) {
 /* Please define minimum number of Roles per room */
 
 setMemorySpawn = function(spawn) {
+    spM = spawnMem;
+
+    if (spawn.memory.aStage == undefined ) {
+        console.log('who isadad ', spawn.name)
+
     spawnMem.minBuilder = 1;
     spawnMem.minDelivery = 2;
     spawnMem.minMiner = 2;
@@ -96,32 +110,34 @@ setMemorySpawn = function(spawn) {
     }
     spM = spawnMem;
 
-   };
+   }
+};
 
    /* Please define any Role Counting var */
-countCreeps = function(){
-harvesterCount = _.sum(Game.creeps, (c) => c.memory.role == 'harvester', Game.creeps.room == spawn.room),
-upgraderCount = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader', Game.creeps.room == spawn.room),
-builderCount = _.sum(Game.creeps, (c) => c.memory.role == 'builder', Game.creeps.room == spawn.room),
-repairerCount = _.sum(Game.creeps, (c) => c.memory.role == 'repairer', Game.creeps.room == spawn.room),
-wallRepairerCount = _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer', Game.creeps.room == spawn.room),
-deliveryCount = _.sum(Game.creeps, (c) => c.memory.role == 'delivery', Game.creeps.room == spawn.room),
-minerCount = _.sum(Game.creeps, (c) => c.memory.role == 'miner', Game.creeps.room == spawn.room),
-longDistanceCount = _.sum(Game.creeps, (c) => c.memory.role == 'longDistance', Game.creeps.room == spawn.room),
-claimerCount = _.sum(Game.creeps, (c) => c.memory.role == 'claimer', Game.creeps.room == spawn.room);
+countCreeps = function(spawn){
+    spawnMem = spawn.memory;
+spawnMem.harvesterCount = _.sum(Game.creeps, (c) => c.memory.role == 'harvester', (c) => c.memory.role == spawn.room.name),
+spawnMem.upgraderCount = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader', (c) => c.memory.role == spawn.room.name),
+spawnMem.builderCount = _.sum(Game.creeps, (c) => c.memory.role == 'builder', (c) => c.memory.role == spawn.room.name),
+spawnMem.repairerCount = _.sum(Game.creeps, (c) => c.memory.role == 'repairer', (c) => c.memory.role == spawn.room.name),
+spawnMem.wallRepairerCount = _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer', (c) => c.memory.role == spawn.room.name),
+spawnMem.deliveryCount = _.sum(Game.creeps, (c) => c.memory.role == 'delivery', (c) => c.memory.role == spawn.room.name),
+spawnMem.minerCount = _.sum(Game.creeps, (c) => c.memory.role == 'miner', (c) => c.memory.role == spawn.room.name),
+spawnMem.longDistanceCount = _.sum(Game.creeps, (c) => c.memory.role == 'longDistance', (c) => c.memory.role == spawn.room.name),
+spawnMem.claimerCount = _.sum(Game.creeps, (c) => c.memory.role == 'claimer', (c) => c.memory.role == spawn.room.name);
 };
 
 notDebug = function(spawn, allMyCreeps) {
     console.log(spawn ,'--- Not just a Debug 😉 ---');
-    console.log(spawn.spawning, 'will be spawned by ', spawn.spawning.remainingTime + Game.time, ' | Total Creeps: ', allMyCreeps);
+    console.log(JSON.stringify(spawn.spawning) , 'will be spawned by ', spawn.spawning.remainingTime + Game.time, ' | Total Creeps: ', allMyCreeps);
     console.log('-----Creep Count--------')
-    console.log(harvesterCount, '/', spawn.memory.minHarvester, ' Harvesters');
-    console.log(upgraderCount, '/', spM.minUpgrader, ' Upgraders');
-    console.log(builderCount, '/', spM.minBuilder, ' Builders');
-    console.log(repairerCount, '/', spM.minRepairer, ' Repairers');
-    console.log(deliveryCount, '/', spM.minDelivery, ' Delivery');
-    console.log(minerCount, '/', spM.minMiner, ' Miner');
-   // console.log(longDistanceCount, '/', JSON.stringify(selRoleName.role[7].name));
+    console.log(spM.harvesterCount, '/', spM.minHarvester, ' Harvesters');
+    console.log(spM.upgraderCount, '/', spM.minUpgrader, ' Upgraders');
+    console.log(spM.builderCount, '/', spM.minBuilder, ' Builders');
+    console.log(spM.repairerCount, '/', spM.minRepairer, ' Repairers');
+    console.log(spM.deliveryCount, '/', spM.minDelivery, ' Delivery');
+    console.log(spM.minerCount, '/', spM.minMiner, ' Miner');
+   //console.log(longDistanceCount, '/', JSON.stringify(selRoleName.role[7].name));
     console.log('-------------');
 };
 

@@ -1,4 +1,4 @@
-
+var creepFnc = require('prototype.creep');
 var roleRepairer = {
 
     /** @param {Creep} creep **/
@@ -44,14 +44,8 @@ var roleRepairer = {
     }
     
     if (creep.memory.working == false) {
-        var target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-        creep.memory.target = target;
-    // try to harvest energy, if the source is not in range
-    if (creep.harvest(creep.memory.target) == ERR_NOT_IN_RANGE) {
-        // move towards the source
-        creep.moveTo(creep.memory.target);
+        creepFnc.energyCollection(creep);
         
-    }
     }
     else { 
  

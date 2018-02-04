@@ -17,33 +17,38 @@ module.exports = {
             creep.moveTo(exit);
         }
     } else if (creep.memory.target == creep.room.name) {
+
+        if (creep.memory.working == true && creep.carry.energy == 0) {
+            // switch state
+            creep.memory.working = false;
+            
+        }
         
-        creepFnc.harvestSource(creep);
-        creepFnc.builderThenRepair(creep);
-        creepFnc.pickupDropped(creep);
+                
+                
+        
+                
+                
+                // if creep is harvesting energy but is full
+                else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
+                    // switch state
+                    creep.memory.working = true;
+                }
+        
+        
+        
+        //creepFnc.pickupDropped(creep);
         if (!creep.memory.working) {
             creep.memory.working = false;
         }
 
-// if creep is trying to complete a constructionSite but has no energy left
-else if (creep.memory.working == true && creep.carry.energy == 0) {
-    // switch state
-    creep.memory.working = false;
-    
-}
-
-        
-        
-
-        
-        
-        // if creep is harvesting energy but is full
-        else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
-            // switch state
-            creep.memory.working = true;
-        }
-        else if (creep.memory.working == false) {
+// if creep is trying to complete a constructionSite but has no energy left 
+        if (creep.memory.working == false) {
+            creepFnc.harvestSource(creep);
             
+        }
+        else if (creep.memory.working == true) {
+            creepFnc.builderThenRepair(creep);
             
         }
     }

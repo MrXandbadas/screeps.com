@@ -49,32 +49,12 @@ module.exports = {
                     filter: s => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0
                 }) == undefined) {
 
-                    const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-        
-                if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-                const path = creep.pos.findPathTo(target);
-                creep.memory.path = path;
-                Memory.path = Room.serializePath(path);
-                creep.moveByPath(Memory.path);
-                    }
-                    ;
+                creepFnc.pickupDropped(creep);
+                }
+                else  {
+                    creepFnc.energyCollection(creep);
                 }
             
-                
-
-
-
-
-    
-                // if one was found
-                else if (creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) != undefined) {
-
-                    var target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-                    const path = creep.pos.findPathTo(target);
-                creep.memory.path = path;
-                Memory.path = Room.serializePath(path);
-                creep.moveByPath(Memory.path);
-                }
            
 
 
