@@ -1,6 +1,6 @@
 module.exports= function(){
-    basevar();
-    Debug = function(spawn, allMyCreeps, energy) {
+    //basevar();
+    debug = function(spawn, allMyCreeps, energy) {
         console.log('----- Not just any Debug 😉 -----');
         console.log('Time is: ',Game.time);
         console.log('------CPU Usage--------');
@@ -18,6 +18,6 @@ module.exports= function(){
         console.log(deliveryCount, '/', spawnMem.minDelivery, ' Delivery');
         console.log(minerCount, '/', spawnMem.minMiner, ' Miner');
        // console.log(longDistanceCount, '/', JSON.stringify(selRoleName.role[7].name));
-        console.log('-------------');
+        console.log('------End of Debug-------');
     };
 };

@@ -75,7 +75,7 @@ module.exports.loop = function () {
             // spawn.spawning is spawning someone. ! means not
             if (!(spawn.spawning == null)) {
 
-                notDebug(spawn, allMyCreeps);
+                debug(spawn, allMyCreeps);
             } // end of !(spawn.spawning)
         } // end of game.spawns for arg
     }) // end of profiler.wrap
