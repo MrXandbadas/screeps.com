@@ -1,12 +1,8 @@
 var roleUpgrader = require('role.upgrader');
 
-
 module.exports = {
-
-
     // a function to run the logic for this role
     run: function (creep) {
-
         if (!creep.memory.working) {
             creep.memory.working = false;
         }
@@ -20,7 +16,6 @@ module.exports = {
             // switch state
             creep.memory.working = true;
         }
-
         // if creep is supposed to complete a constructionSite
         if (creep.memory.working == true) {
             // find closest constructionSite
@@ -44,19 +39,17 @@ module.exports = {
             let container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: s => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0
             });
-
             if (container == undefined) {
                 const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-if(target) {
-    if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(target);
-    }
-}
+                if(target) {
+                    if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(target);
+                    }
+                }
                 container = creep.room.storage;
             }
 
             // if one was found
-            
             if (container != undefined) {
                 // try to withdraw energy, if the container is not in range
                 if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -65,7 +58,5 @@ if(target) {
                 }
             }
         }
-
     }
-    
 };

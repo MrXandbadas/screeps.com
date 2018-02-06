@@ -1,8 +1,8 @@
 var roleDelivery = require('role.delivery');
+
 module.exports = {
     // a function to run the logic for this role
     run: function (creep) {
-
         // if creep is bringing energy to a structure but has no energy left
         if (creep.memory.working == true && creep.carry.energy == 0) {
             // switch state
@@ -13,31 +13,25 @@ module.exports = {
             // switch state
             creep.memory.working = true;
         }
-
         // if creep is supposed to transfer energy to a structure
         if (creep.memory.working == true) {
             // find closest spawn, extension or tower which is not full 
             // find closest container
-            
             if (creep.memory.role == 'harvester') {
                 var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
                     // the second argument for findClosestByPath is an object which takes
                     // a property called filter which can be a function
                     // we use the arrow operator to define it
-                    filter: (s) => (s.structureType == STRUCTURE_CONTAINER
-                        || s.structureType == STRUCTURE_STORAGE
-                        || s.structureType == STRUCTURE_SPAWN
-                        || s.structureType == STRUCTURE_EXTENSION
-                        || s.structureType == STRUCTURE_TOWER)
-                        && s.energy < s.energyCapacity
+                    filter: (s) => (
+                    s.structureType == STRUCTURE_CONTAINER
+                    || s.structureType == STRUCTURE_STORAGE
+                    || s.structureType == STRUCTURE_SPAWN
+                    || s.structureType == STRUCTURE_EXTENSION
+                    || s.structureType == STRUCTURE_TOWER)
+                    && s.energy < s.energyCapacity
                 });
-            } else { var structure = creep.room.storage;}
-
-
-            
-            
-            /**/
-
+            } 
+            else { var structure = creep.room.storage;}
             // if we found one
             if (structure != undefined) {
                 // try to transfer energy, if it is not in range
@@ -56,8 +50,6 @@ module.exports = {
                 // move towards the source
                 creep.moveTo(source);
             }
-
-        
         }
     }
 };

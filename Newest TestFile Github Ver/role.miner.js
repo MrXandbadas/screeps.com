@@ -1,11 +1,9 @@
 module.exports = {
     // a function to run the logic for this role
     run: function (creep) {
-
         if (!creep.memory.working) {
             creep.memory.working = false;
         }
-
         if (!creep.memory.sourceId) {
             creep.memory.sourceId = false;
         }
@@ -19,12 +17,10 @@ module.exports = {
             // switch state
             creep.memory.working = true;
         }
-
         // if creep is supposed to transfer energy to a structure
         if (creep.memory.working == true) {
             // find closest spawn, extension or tower which is not full
             var structure = creep.room.storage;
-
             // if we found one
             if (structure != undefined) {
                 // try to transfer energy, if it is not in range
@@ -42,7 +38,8 @@ module.exports = {
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 // move towards the source
                 creep.moveTo(source);
-            } else {
+            }
+            else {
                 creep.drop(RESOURCE_ENERGY);
             }
         }

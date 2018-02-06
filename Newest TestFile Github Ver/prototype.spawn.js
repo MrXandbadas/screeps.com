@@ -16,67 +16,65 @@ module.exports = function() {
                 }*/
 
             if (energy > 350) { 
-                if (harvesterCount < spM.minHarvester) {
+                if (harvesterCount < spawnMem.minHarvester) {
                     harvester1Spawn(selectedRole)  
-                    
                 }
-                else if (upgraderCount < 3) {
+                
+                else if (upgraderCount < spawnMem.minUpgrader) {
                     upgrader1Spawn(selectedRole);
                 }
+                
                 else if (deliveryCount < spawnMem.minDelivery) {
                     delivery1Spawn(selectedRole)
-
-
                 }                
         
-                else if (builderCount < spM.minBuilder) {
+                else if (builderCount < spawnMem.minBuilder) {
                     builder1Spawn(selectedRole)
                 }
-                else if (repairerCount < spM.minRepairer) {
+                
+                else if (repairerCount < spawnMem.minRepairer) {
                     repairer1Spawn(selectedRole)
                 }
 
-                
-                else if (longDistanceCount < 6
-            ) {
-                
-
+                else if (longDistanceCount < 6) {
                    longDistance1Spawn(selectedRole);
                 }
-                } else {}
+            }
+                else {
+                    
+                }
 
-            } else if (spawnMem.aStage = 2) {
+            } 
+            else if (spawnMem.aStage = 2) {
                 countCreeps();
-                
                 energy = spawnMem.myEnergy;
-
+                
                 if (energy > 600) {
                     
-                if (deliveryCount < spM.minDelivery) {
+                if (deliveryCount < spawnMem.minDelivery) {
                     delivery1Spawn(selectedRole);
                 }
-                if (minerCount < 5) {
+                if (minerCount < spawnMem.minMiner1) {
 
                     miner1Spawn(selectedRole);
                 }
-                else if (builderCount < spM.minBuilder) {
+                else if (builderCount < spawnMem.minBuilder) {
                     builder1Spawn(selectedRole)
                 }
-                else if (repairerCount < spM.minRepairer) {
+                else if (repairerCount < spawnMem.minRepairer) {
                     repairer1Spawn(selectedRole)
                 }
 
-                else if (upgraderCount < spM.minUpgrader) {
+                else if (upgraderCount < spawnMem.minUpgrader) {
                     upgrader1Spawn(selectedRole);
                 }
             }
             console.log('Amount of Energy: ' + energy);
             }
-
         }
-   // return selectedRole.       
+    };
+     // return selectedRole.       
 
-        };
         harvester1Spawn = function(selectedRole) {
             creepName = 'Harvester: ' + Game.time;
             name = spawn.backupHarvester(creepName);
@@ -117,14 +115,14 @@ module.exports = function() {
         }
  
    
-       usrSpawn = function(){
+       usrSpawn = function(spawn){
         name = spawn.createClaimer();
        }
 
-       StructureSpawn.prototype.createClaimer = function () {
+       StructureSpawn.prototype.createClaimer = function (creepName) {
             
-         return this.spawnCreep([WORK,CLAIM,CARRY], 'Claimer', { memory: {
-             role: 'claimer', target: 'E4N49'
+         return this.spawnCreep([WORK,CLAIM,CARRY, MOVE], creepName, { memory: {
+             role: 'claimer', target: 'E3N48'
          }
         });
     };
@@ -146,9 +144,9 @@ module.exports = function() {
     }          
      return this.spawnCreep(body, creepName, { memory: {
          role: 'harvester', working: false
-     }
+        }
     });
-    };
+};
 
     StructureSpawn.prototype.createCreepType1 = function (energy, roleName, creepName) {
 
@@ -239,9 +237,9 @@ module.exports = function() {
                          home: spawnMem.roomName, 
                          target: 'E2N48',
                          sourceIndex: ''
-                     }
-                        });    
+                }
+            });    
                 
-                    };
+        };
 
 };

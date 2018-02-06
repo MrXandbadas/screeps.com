@@ -1,8 +1,5 @@
 module.exports = {
-    // a function to run the logic for this role
-    /* @param {Creep} creep */
     run: function (creep) {
-
         if (!creep.memory.working) {
             creep.memory.working = false;
         }
@@ -16,7 +13,6 @@ module.exports = {
             // switch state
             creep.memory.working = true;
         }
-
         // if creep is supposed to transfer energy to a structure
         if (creep.memory.working == true) {
             // find closest spawn, extension or tower which is not full
@@ -24,16 +20,16 @@ module.exports = {
                 // the second argument for findClosestByPath is an object which takes
                 // a property called filter which can be a function
                 // we use the arrow operator to define it
-                filter: (s) => (s.structureType == STRUCTURE_SPAWN
-                    || s.structureType == STRUCTURE_EXTENSION
-                    || s.structureType == STRUCTURE_TOWER)
-                    && s.energy < s.energyCapacity
+                filter: (s) => (
+                s.structureType == STRUCTURE_SPAWN
+                || s.structureType == STRUCTURE_EXTENSION
+                || s.structureType == STRUCTURE_TOWER)
+                && s.energy < s.energyCapacity
             });
 
             if (structure == undefined) {
                 structure = creep.room.storage;
             }
-
             // if we found one
             if (structure != undefined) {
                 // try to transfer energy, if it is not in range
@@ -52,14 +48,13 @@ module.exports = {
 
             if (container == undefined) {
                 const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-if(target) {
-    if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(target);
-    }
-}
+                if(target) {
+                    if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                    }
+                }
                 container = creep.room.storage;
             }
-
             // if one was found
             if (container != undefined) {
                 // try to withdraw energy, if the container is not in range

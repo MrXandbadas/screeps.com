@@ -1,7 +1,6 @@
 module.exports = {
     // a function to run the logic for this role
     run: function (creep) {
-
         if (!creep.memory.working) {
             creep.memory.working = false;
         }
@@ -15,12 +14,10 @@ module.exports = {
             // switch state
             creep.memory.working = true;
         }
-
         // if creep is supposed to transfer energy to the controller
         if (creep.memory.working == true) {
             // instead of upgraderController we could also use:
             // if (creep.transfer(creep.room.controller, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-
             // try to upgrade the controller
             if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 // if not in range, move towards the controller
@@ -29,17 +26,15 @@ module.exports = {
         }
         // if creep is supposed to harvest energy from source
         else if (!creep.memory.working == true) {
-
             let creepQuick = require('prototype.creep');
-            creepQuick.energyCollection(creep);
-            
-            } else {
-                var source = creep.pos.storage;
-                // try to harvest energy, if the source is not in range
-                if (creep.withdraw(source) == ERR_NOT_IN_RANGE) {
-                    // move towards the source
-                    creep.moveTo(source);
-
+            creepQuick.energyCollection(creep); 
+        }
+        else {
+            var source = creep.pos.storage;
+            // try to harvest energy, if the source is not in range
+            if (creep.withdraw(source) == ERR_NOT_IN_RANGE) {
+                // move towards the source
+                creep.moveTo(source);
             }
         }
     }

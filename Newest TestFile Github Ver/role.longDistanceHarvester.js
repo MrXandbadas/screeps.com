@@ -11,7 +11,6 @@ module.exports = {
             // switch state
             creep.memory.working = true;
         }
-
         // if creep is supposed to transfer energy to a structure
         if (creep.memory.working == true) {
             // if in home room
@@ -21,13 +20,13 @@ module.exports = {
                     // the second argument for findClosestByPath is an object which takes
                     // a property called filter which can be a function
                     // we use the arrow operator to define it
-                    filter: (s) => (s.structureType == STRUCTURE_STORAGE
-                        || s.structureType == STRUCTURE_EXTENSION
-                        || s.structureType == STRUCTURE_STORAGE
-                        || s.structureType == STRUCTURE_TOWER)
-                        && s.energy < s.energyCapacity
+                    filter: (s) => (
+                    s.structureType == STRUCTURE_STORAGE
+                    || s.structureType == STRUCTURE_EXTENSION
+                    || s.structureType == STRUCTURE_STORAGE
+                    || s.structureType == STRUCTURE_TOWER)
+                    && s.energy < s.energyCapacity
                 });
-
                 // if we found one
                 if (structure != undefined) {
                     // try to transfer energy, if it is not in range
@@ -49,15 +48,12 @@ module.exports = {
         else {
             // if in target room
             if (creep.room.name == creep.memory.target) {
-
-              
                 var source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
                 // try to harvest energy, if the source is not in range
                 if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                     // move towards the source
                     creep.moveTo(source);
                 }
-
             }
             // if not in target room
             else {

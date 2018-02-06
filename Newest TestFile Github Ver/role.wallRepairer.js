@@ -1,9 +1,7 @@
 var roleBuilder = require('role.builder');
-
 module.exports = {
     // a function to run the logic for this role
     run: function (creep) {
-
         if (!creep.memory.working) {
             creep.memory.working = false;
         }
@@ -17,7 +15,6 @@ module.exports = {
             // switch state
             creep.memory.working = true;
         }
-
         // if creep is supposed to repair something
         if (creep.memory.working == true) {
             // find all walls in the room
@@ -36,14 +33,12 @@ module.exports = {
                         break;
                     }
                 }
-
                 // if there is one
                 if (target != undefined) {
                     // break the loop
                     break;
                 }
             }
-
             // if we find a wall that has to be repaired
             if (target != undefined) {
                 // try to repair it, if not in range
