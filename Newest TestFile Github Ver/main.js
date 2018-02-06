@@ -21,19 +21,10 @@ runRole = function (ab, creep, rN) {
         usrFnc.roleCall(creep, rN, ab);
     }
 };
-//runClear = function() {for (let name in Memory.creeps) {
-//
-//    if (Game.creeps[name] == undefined) {
-//
-//        delete Memory.creeps[name];
-//       }
-//    }
-//};
 
 module.exports.loop = function () {
     profiler.wrap(function() {
 
-        // runClear(); 
         let allMyCreeps = 0;
   
         for (let name in Game.creeps) {
@@ -65,11 +56,11 @@ module.exports.loop = function () {
             setMemorySpawn(spawn);
             roleNameSet(spawnMem);
             calcSpawn(spawn); //spawning process
+            spawningMessage();
             countCreeps();
+            towerDefend();
             //console.log(JSON.stringify(selectedRole));
 
-            // shorten spawnMem, undid this, very inconsistent, no use for shortening
-            // spM = spawnMem;
             name = undefined;
        
             // spawn.spawning is spawning someone. ! means not

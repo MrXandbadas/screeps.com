@@ -29,7 +29,7 @@ var roleRepairer = {
                 // try to repair it, if it is out of range
                 if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
                     // move towards it
-                    creep.moveTo(structure);
+                    creep.moveTo(structure, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
             // if we can't find one
@@ -47,7 +47,7 @@ var roleRepairer = {
             // try to harvest energy, if the source is not in range
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 // move towards the source
-                creep.moveTo(source);
+                creep.moveTo(source, {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
     }    

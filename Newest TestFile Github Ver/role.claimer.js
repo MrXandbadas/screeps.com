@@ -6,7 +6,7 @@ module.exports = {
         if(route.length > 0) {
             console.log('Now heading to room '+route[0].room);
             const exit = creep.pos.findClosestByRange(route[0].exit);
-            creep.moveTo(exit);
+            creep.moveTo(exit, {visualizePathStyle: {stroke: '#ffffff'}});
         }
         else {
             if (creep.room.name == creep.memory.target) {
@@ -14,7 +14,7 @@ module.exports = {
             // try to claim controller
             if (creep.claimController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 // move towards the controller
-                creep.moveTo(creep.room.controller);
+                creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#ffffff'}});
             }
         } 
     }

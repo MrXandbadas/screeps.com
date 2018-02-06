@@ -4,6 +4,15 @@ module.exports = function() {
         selectedRole = [];
        if (spawnMem.aStage == undefined) {
 
+        spawningMessage = function(){
+            // Give a message when spawning someone
+            if(Game.spawns[home].spawning) {
+                var spawningCreep = Game.creeps[Game.spawns[home].spawning.name];
+                Game.spawns[home].room.visual.text('Spawning a ' + Game.spawns[home].spawning.name,
+                Game.spawns[home].pos.x + 1,
+                Game.spawns[home].pos.y,
+            {align: 'left', opacity: 0.8});}
+        }
         setMemorySpawn(spawn);
        }
        else {
@@ -15,6 +24,9 @@ module.exports = function() {
                     usrSpawn();
                 }*/
 
+                if(harvesterCount == 0 && minerCount == 0){
+                    harvester1Spawn(selectedRole)  
+                }
             if (energy > 350) { 
                 if (harvesterCount < spawnMem.minHarvester) {
                     harvester1Spawn(selectedRole)  

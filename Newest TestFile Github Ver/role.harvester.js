@@ -16,18 +16,24 @@ module.exports = {
         // if creep is supposed to transfer energy to a structure
         if (creep.memory.working == true) {
             // find closest spawn, extension or tower which is not full 
-            // find closest container
-            if (creep.memory.role == 'harvester') {
+            var takeToSpawn
+            if(deliveryCount < takeToSpawn || deliveryCount == takeToSpawn){
                 var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
                     // the second argument for findClosestByPath is an object which takes
                     // a property called filter which can be a function
                     // we use the arrow operator to define it
                     filter: (s) => (
-                    s.structureType == STRUCTURE_CONTAINER
-                    || s.structureType == STRUCTURE_STORAGE
-                    || s.structureType == STRUCTURE_SPAWN
+                    s.structureType == STRUCTURE_SPAWN
                     || s.structureType == STRUCTURE_EXTENSION
                     || s.structureType == STRUCTURE_TOWER)
+                    && s.energy < s.energyCapacity
+                });
+            }
+            if (creep.memory.role == 'harvester') {
+                var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+                    filter: (s) => (
+                    s.structureType == STRUCTURE_CONTAINER
+                    || s.structureType == STRUCTURE_STORAGE)
                     && s.energy < s.energyCapacity
                 });
             } 
@@ -37,7 +43,7 @@ module.exports = {
                 // try to transfer energy, if it is not in range
                 if (creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     // move towards it
-                    creep.moveTo(structure);
+                    creep.moveTo(structure, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
         }
@@ -48,7 +54,7 @@ module.exports = {
             // try to harvest energy, if the source is not in range
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 // move towards the source
-                creep.moveTo(source);
+                creep.moveTo(source, {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
     }
