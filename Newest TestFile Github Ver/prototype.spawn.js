@@ -1,9 +1,9 @@
-module.exports = function() {
+module.exports = function(spawn) {
     var spM = spawn.memory;
-    home = spawn.room;
-    energy = spawn.energyAvaliable
+    var home = spawn.room;
+    var energy = spawn.energyAvaliable
     
-
+var harvester1Spawn,upgrader1Spawn,repairer1Spawn;
     harvester1Spawn = function(selectedRole) {
         var user = require('prototype.varconfig');
         creepName = 'Harvester: ' + Game.time;

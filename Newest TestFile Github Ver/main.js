@@ -1,5 +1,6 @@
 
 var usrFnc = require('prototype.usrfnc');
+var role;
 var roleArray = [
     role = {   
         roleName: 'harvester',
@@ -61,10 +62,12 @@ module.exports.loop = function () {
         //var definitions for each creep
         creep = Game.creeps[name];
 
+
         creep.memory.currentRoom = creep.room.name;
         roleName = creep.memory.role;
         require('prototype.creep')(creep);
-        console.log(roleCounter)
+
+        
         
         //console.log(creep.memory.jobTask[1].harvestingSource)
 
@@ -79,8 +82,8 @@ module.exports.loop = function () {
     for (let i in Game.spawns) {
         
         
-        spawn = Game.spawns[i];
-        require('prototype.spawn')();
+        var spawn = Game.spawns[i];
+        require('prototype.spawn')(spawn);
         
         var energy = spawn.room.energy;
         console.log(Game.creeps.length)
@@ -89,6 +92,7 @@ module.exports.loop = function () {
             
         
         } else {
+            var name = undefined;
 
 
 
