@@ -16,6 +16,10 @@ run: function (creep) {
 
         creep.memory.jobTask[0].harvestingSource = 'false';
     }
+    else if (creep.memory.jobTask[0].harvestingSource == 'true' && creep.carry.energy == 0) {
+
+        creep.memory.jobTask[2].deliveryToStructure = 'false';
+    }
     else if (creep.memory.jobTask[0].harvestingSource == 'false' && creep.carry.energy == creep.carryCapacity) {
 
         creep.memory.jobTask[2].deliveryToStructure = 'true';
@@ -52,6 +56,7 @@ run: function (creep) {
 
     if (creep.memory.jobTask[2].deliveryToStructure == 'true') {
 
+
         var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
             filter: (s) => (s.structureType == STRUCTURE_SPAWN
                 || s.structureType == STRUCTURE_EXTENSION
@@ -87,24 +92,7 @@ run: function (creep) {
 
     }
 
-
-
-
-
-
-    if (creep.memory.jobTask[0].harvestingSource == 'false' ) {
-       
-
-       // console.log(JSON.stringify(creep.memory.jobTask[2]))
-        //console.log(structure.id)
-
-
-    }
-
-
-
-
-    
+   
 
 }
 

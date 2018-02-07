@@ -82,7 +82,7 @@ module.exports.loop = function () {
 if (spawn.memory.repopulation == 'true') {
 
             var energy = spawn.room.energy;
-            let creepName = 'Builder ' + Game.time;
+            let creepName = 'Upgrader ' + Game.time;
             var workState = [
                 {harvestingSource: 'false', harvestingSourceID: ''},
                 {upgradingAttempt: 'false', upgradingSourceID: ''},
@@ -90,7 +90,7 @@ if (spawn.memory.repopulation == 'true') {
                 {buildingStructure: 'false', buildingStructureID: ''}
         
             ];
-           name = spawn.usrfncHarvester(energy,creepName,'builder',workState);
+           name = spawn.usrfncHarvester(energy,creepName,'upgrader',workState);
            spawn.memory.repopulation = 'false';
             //console.log(name)
         }

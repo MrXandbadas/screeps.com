@@ -3,7 +3,17 @@ module.exports = {
     run: function (creep) {
     
         
-        if (creep.memory.jobTask[0].harvestingSource == 'true' && creep.carry.energy == creep.carryCapacity) {
+        if (creep.memory.jobTask[0].harvestingSource = 'false' && creep.carry.energy == 0 && creep.carry.energy != creep.carryCapacity) {
+
+            creep.memory.jobTask[0].harvestingSource = 'true';
+        }
+        
+        else if (creep.memory.jobTask[0].harvestingSource == 'true' && creep.carry.energy == creep.carryCapacity) {
+    
+            creep.memory.jobTask[0].harvestingSource = 'false';
+            creep.memory.jobTask[1].upgradingAttempt = 'true';
+        }
+        else if (creep.memory.jobTask[0].harvestingSource == 'false' && creep.carry.energy == creep.carryCapacity) {
     
             creep.memory.jobTask[0].harvestingSource = 'false';
             creep.memory.jobTask[1].upgradingAttempt = 'true';
@@ -14,6 +24,15 @@ module.exports = {
      
             creep.memory.jobTask[0].harvestingSource = 'true';
             creep.memory.jobTask[1].upgradingAttempt = 'false';
+        }
+
+        else if (creep.memory.jobTask[1].upgradingAttempt == 'false' && creep.carry.energy == creep.carryCapacity) {
+    
+     
+            creep.memory.jobTask[0].harvestingSource = 'false';
+            creep.memory.jobTask[3].buildingStructure = 'true';
+
+
         }
     
         if (creep.memory.jobTask[0].harvestingSource == 'true') {
