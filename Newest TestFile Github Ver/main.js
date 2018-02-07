@@ -1,95 +1,107 @@
-require('prototype.varconfig')();
-require('prototype.spawn')();
-var usrFnc = require('prototype.creep', 'prototype.usrfnc');
 
-
-baseVar();
-
-
-runRole = function (creep) {
-    if (creep.memory.role == creep.memory.role) {
-        usrFnc.roleCall(creep);
-      //  console.log('yes', creep)
-    }
-};
-runClear = function() {for (let name in Memory.creeps) {
-
-    if (Game.creeps[name] == undefined) {
-
-        delete Memory.creeps[name];
-    }}
-};
+var usrFnc = require('prototype.usrfnc');
+var roleArray = [
+    role = {   
+        roleName: 'harvester',
+        selectedRole: () => {
+            let creepName = 'harvester' + Game.time;
+           return creepName;
+        }               
+            },
+    role = {
+        roleName: 'upgrader',
+        creepRoomCounter: {}
+            },
+    role = {
+        roleName: 'builder',
+        creepRoomCounter: {}
+            },
+    
+    role = {
+        roleName: '',
+        creepRoomCounter: {}
+            },
+    role = {
+        roleName: '',
+        creepRoomCounter: {}
+            },
+    role = {
+        roleName: '',
+        creepRoomCounter: {}
+            }
+        
+    
+       ];
 
 module.exports.loop = function () {
 
-    runClear(); 
-  
+    usrFnc.baseVar //calling set of base variables 
+
+
     for (let name in Game.creeps) {
+        var creepExt;
+        //var definitions for each creep
         creep = Game.creeps[name];
         creep.memory.currentRoom = creep.room.name;
- 
         roleName = creep.memory.role;
+        require('prototype.creep')(creep);
+        usrFnc.roleCall(creep,roleName);
+        
+        //console.log(creep.memory.jobTask[1].harvestingSource)
 
         
-        baseVarRole();
-
-         let rN = selRoleName;
-         var abCounter = []
-        for (let indexa = 0; indexa < rN.length; ++indexa) {
-            var al = rN[indexa];
-            var ab = al.role;
+        for (let name in Memory.creeps) {
+            if (Game.creeps[name] == undefined) {
+                delete Memory.creeps[name];
+            }
             
-            abCounter.push(ab , al.roleCount, creep.room.name)
-            
-            runRole(creep);
-            
-            };
-           
-            
-    } //end of for name in Game.creeps
-    var spawnCounter = [];
-    for (let i in Game.spawns) {
-        spawn = Game.spawns[i];
-        let nene = Game.spawns.length;
-        baseVarRole(spawn);
-        spawnCounter.push(spawn)
-        
-        
-    }
-    
-       for (let aaa = 0; spawnCounter.length > aaa; ++aaa) {
-       
-        spawn = spawnCounter[aaa];
-        //console.log(Game.spawns[i], 'hi')
-        HOME = spawn.room.name
-        spawnMem = spawn.memory;
-        
-       // let roleNamex = roleName.length;
-        setMemorySpawn(spawn);
-        roleNameSet(spawnMem);
-       calcSpawn(spawn); //spawning process
-        countCreeps(spawn);
-        
-        var memorySave = function() {
-            
-            spawnMem = spawn.memory;
         }
-        //console.log(JSON.stringify(selectedRole));
-
-        spM = spawnMem;
-        name = undefined;
-
         
-        if (!(spawn.spawning == null)) {
-
-            notDebug(spawn);
 
 
-        } // end of !(spawn.spawning)
     }
 
- // end of game.spawns for arg
 
-//console.log('At the end of the Game loop');
-}; // end of exports.loop function {}
-console.log('still running! Time is: ', Game.time);
+    for (let i in Game.spawns) {
+        
+        spawn = Game.spawns[i];
+        require('prototype.spawn')();
+        
+        var energy = spawn.room.energy;
+
+        if (!(spawn.spawning == null)) {
+            
+
+        
+        } else {
+
+            if (spawn.memory.repopulation == undefined) {
+                spawn.memory.repopulation = 'true';
+            }
+   
+if (spawn.memory.repopulation == 'true') {
+
+            var energy = spawn.room.energy;
+            let creepName = 'Builder ' + Game.time;
+            var workState = [
+                {harvestingSource: 'false', harvestingSourceID: ''},
+                {upgradingAttempt: 'false', upgradingSourceID: ''},
+                {deliveryToStructure: 'false', deliveryToStructureID: ''},
+                {buildingStructure: 'false', buildingStructureID: ''}
+        
+            ];
+           name = spawn.usrfncHarvester(energy,creepName,'builder',workState);
+           spawn.memory.repopulation = 'false';
+            //console.log(name)
+        }
+ 
+        
+    } //end of else
+}
+   
+
+
+
+
+
+              };

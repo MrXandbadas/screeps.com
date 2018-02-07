@@ -1,75 +1,68 @@
-
 module.exports = {
-    // a function to run the logic for this role
+
     run: function (creep) {
-        let structure;
-        // if creep is bringing energy to a structure but has no energy left
-        if (creep.memory.working == true && creep.carry.energy == 0) {
-            // switch state
-            creep.memory.working = false;
-            
-        }
-                  // rincreepenergyfinder
-            
-        // if creep is harvesting energy but is full
-        else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
-            // switch state
-            creep.memory.working = true;
-            
-        }
-
+    
         
-        if(!creep.memory.currentRoom) {
-            creep.memory.currentRoom = creep.room.name;
+        if (creep.memory.jobTask[0].harvestingSource == 'true' && creep.carry.energy == creep.carryCapacity) {
+    
+            creep.memory.jobTask[0].harvestingSource = 'false';
+            creep.memory.jobTask[1].upgradingAttempt = 'true';
         }
-        if(!creep.memory.target) {
-            creep.memory.target = creep.room.name;
+    
+        else if (creep.memory.jobTask[1].upgradingAttempt == 'true' && creep.carry.energy == 0) {
+    
+     
+            creep.memory.jobTask[0].harvestingSource = 'true';
+            creep.memory.jobTask[1].upgradingAttempt = 'false';
         }
-        // if creep is supposed to transfer energy to a structure
-        if (creep.memory.working == true) {
+    
+        if (creep.memory.jobTask[0].harvestingSource == 'true') {
+            const source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+    
+           if (creep.memory.jobTask.harvestingSourceID == undefined) {
+     
+               creep.memory.jobTask.harvestingSourceID = source.id;
+     
+           }
+    
+             if (creep.memory.jobTask.harvestingSourceID != undefined) {
+
+                    if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                        const path = creep.pos.findPathTo(source);
+                        creep.memory.path = path;
+                        Memory.path = Room.serializePath(path);
+                        creep.moveByPath(Memory.path);
+                        
+            }
+            }
+           
+        }
+        if (creep.memory.jobTask[1].upgradingAttempt == 'true' ) {
 
 
-// if in home room
-            if (creep.memory.currentRoom == creep.memory.target) {
-                
-            // try to upgrade the controller
+            if (creep.memory.jobTask[1].upgradingSourceID == undefined) {
+                creep.memory.jobTask[1].upgradingSourceID = creep.room.controller.id;
+            }
+
+            if (creep.memory.jobTask[1].upgradingSourceID != undefined) {
+
             if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                // if not in range, move towards the controller
-                creep.moveTo(creep.room.controller);
-            }
-        } else if (creep.room.name != creep.memory.target) {
-                // find exit to home room
-                var exit = creep.room.findExitTo(creep.memory.target);
-                // and move to exit
-                creep.moveTo(creep.pos.findClosestByRange(exit));
-            } else if (!creep.memory.target) {
-                if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                    // if not in range, move towards the controller
-                    creep.moveTo(creep.room.controller);
-                }
-            }
-            // if creep is supposed to harvest energy from source
-        if (creep.room.name == creep.memory.target) {
-
-              
-                
-
+            const path = creep.pos.findPathTo(creep.room.controller);
+             creep.memory.path = path;
+            Memory.path = Room.serializePath(path);
+            creep.moveByPath(Memory.path);
+                    
         }
-        }  else if (creep.memory.working == false) {
-            var target = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-
-        // try to harvest energy, if the source is not in range
-        if (creep.harvest(target) == ERR_NOT_IN_RANGE) {
-            // move towards the source
-            creep.moveTo(target);
-            
-        }
-        }
-        
-
-        
-        
-
-        
     }
-};
+        }
+           
+        }
+    
+    
+    
+        
+    
+    
+    
+    };
+    
