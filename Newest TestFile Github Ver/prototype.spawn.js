@@ -1,6 +1,7 @@
 module.exports = function() {
     var spM = spawn.memory;
     home = spawn.room;
+    energy = spawn.energyAvaliable
     
 
     harvester1Spawn = function(selectedRole) {
@@ -37,7 +38,7 @@ module.exports = function() {
             body.push(MOVE);
         }          
          return this.spawnCreep(body, creepName, { memory: {
-             role: roleName, jobTask: workState, home: Game.spawns.room
+             role: roleName, jobTask: workState, home: ''
          }
         });
         };

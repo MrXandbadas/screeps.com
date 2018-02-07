@@ -1,5 +1,5 @@
-
-    roleRun = (creep) => {
+module.exports = function() {
+    roleRun = function(creep){
         
         var creepRole = creep.memory.role
 
@@ -44,12 +44,30 @@
             return roleDelivery.run(creep);
         }
     
+        },
+
+         creepCounter = function(creep) {
+            var roleCounter = [
+                { role: 'harvester', currentRoom: Game.spawns.room, roleCount: (_.sum(Game.creeps, (c) => c.memory.role == 'harvester'))},
+                { role: 'upgrader', currentRoom: creep.memory.currentRoom, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'upgrader')},
+                { role: 'builder', currentRoom: creep.memory.currentRoom, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'builder')},
+                { role: 'repairer', currentRoom: creep.memory.currentRoom, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'repairer')},
+                { role: 'wallRepairer', currentRoom: creep.memory.currentRoom, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer')},
+                { role: 'delivery', currentRoom: creep.memory.currentRoom, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'delivery')},
+                { role: 'miner', currentRoom: creep.memory.currentRoom, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'miner')},
+                { role: 'longDistance', currentRoom: creep.memory.currentRoom, roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'longDistance')}
+    
+                
+                ];
+                return roleCounter;
+
         }
 
 
 
 
 
-    module.exports = roleRun;
+
+      };
 
     

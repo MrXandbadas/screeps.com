@@ -55,43 +55,6 @@ var usrfnc = {
                 }
             },
     
-   roleCall: function(creep,roleName) {
-       let jobtask = creep.memory.jobTask;
-       let myRoleis = creep.memory.role;
-                if (roleName == 'harvester') {
-                   if (jobtask.workingJob == undefined) {
-                    return jobtask.workingJob = false;
-                   };
-                   if (jobtask.workingJob.myRoleis == undefined) {
-                    return jobtask.workingJob.myRoleis = true;
-                   };
-                }
-                else if (roleName == 'upgrader') {
-                    if (jobtask.workingJob == undefined) {
-                        return jobtask.workingJob = false;
-                    };
-                    if (jobtask.workingJob.myRoleis == undefined) {
-                        return jobtask.workingJob.myRoleis = true;
-                    };
-                }
-                else if (roleName == 'builder') {
-                    if (jobtask.workingJob == undefined) {
-                        jobtask.workingJob = false;
-                    };
-                    if (jobtask.workingJob.myRoleis == undefined) {
-                     jobtask.workingJob.myRoleis = true;
-                    };
-                }
-                else if (roleName == 'repairer') {
-                    if (jobtask.workingJob == undefined) {
-                        jobtask.workingJob = false;
-                    };
-                    if (jobtask.workingJob.myRoleis == undefined) {
-                     jobtask.workingJob.myRoleis = true;
-                    };
-                }
-            }
-
 
 
 };
