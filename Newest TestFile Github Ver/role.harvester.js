@@ -1,4 +1,5 @@
 var roleDelivery = require('role.delivery');
+var varconfig = require('prototype.varconfig');
 
 module.exports = {
     // a function to run the logic for this role

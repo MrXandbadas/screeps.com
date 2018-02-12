@@ -4,7 +4,7 @@ module.exports = function() {
         selectedRole = [];
        if (spawnMem.aStage == undefined) {
 
-        spawningMessage = function(){
+        function spawningMessage(){
             // Give a message when spawning someone
             if(Game.spawns[home].spawning) {
                 var spawningCreep = Game.creeps[Game.spawns[home].spawning.name];
@@ -81,7 +81,7 @@ module.exports = function() {
                     upgrader1Spawn(selectedRole);
                 }
             }
-            console.log('Amount of Energy: ' + energy);
+            console.log('Amount of Energy: ' + energy); // LOG HERE! -- For future Refference
             }
         }
     };
@@ -123,7 +123,7 @@ module.exports = function() {
 
                     name = spawn.createCreepLongDistance(energy, 'longDistance', creepName);
                     selectedRole.push('longDistance');
-                    console.log(name)
+                    console.log(name) //LOG HERE! -- For future Refference
         }
  
    

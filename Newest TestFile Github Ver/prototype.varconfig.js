@@ -15,9 +15,11 @@ module.exports = function() {
             { role: 'miner', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'miner')},
             { role: 'longDistance', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'longDistance')}
         ];
-
         roleName = [];
-        };
+      
+        
+
+    };
         /* 
         Please define new roles inside the roleName.push() array function
         */
@@ -88,6 +90,7 @@ module.exports = function() {
         minerCount = _.sum(Game.creeps, (c) => c.memory.role == 'miner'),
         longDistanceCount = _.sum(Game.creeps, (c) => c.memory.role == 'longDistance'),
         claimerCount = _.sum(Game.creeps, (c) => c.memory.role == 'claimer');
+        
     };
 
 }; //end of export
