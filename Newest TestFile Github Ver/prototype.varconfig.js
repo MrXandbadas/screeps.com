@@ -2,6 +2,14 @@ module.exports = function() {
     _ = require('lodash');
     baseVar = function() {
         var creep, creepRole, spawn, name, runRole,  selectedRole, energy, creepName, energyCap, allMyCreeps, minCounter, spawnMem, spM, calcSpawn, setMemorySpawn, aStage, stageUpdate,roleName,target, sourceIndex, HOME, selRoleName, roleCount;
+
+        var workState = [
+            {harvestingSource: 'true', harvestingSourceID: ''},
+            {upgradingAttempt: 'false', upgradingSourceID: ''},
+            {deliveryToStructure: 'false', deliveryToStructureID: ''},
+            {buildingStructure: 'false', buildingStructureID: ''}
+    
+        ];
     }
     //please leave Harvester, upgrader and builder as the first 3
     baseVarRole = () => {

@@ -13,7 +13,7 @@ var usrFnc = require('prototype.creep', 'prototype.usrfnc');
 baseVar();
 
 testCommand = function(){
-    console.log = ('test is working');
+    console.log = ('test is working'); // console log
 };
 
 runRole = function (ab, creep, rN) {
@@ -35,10 +35,7 @@ module.exports.loop = function () {
             allMyCreeps = allMyCreeps + 1 //CountingCreeps :D
 
             baseVarRole();
-            //bout to break this
-            //for (let i =0; 0 < 7; ++i) {
-            //console.log(JSON.stringify(selRoleName[i]))
-        //}
+
         let rN = selRoleName;
         for (let indexa = 0; indexa < rN.length; ++indexa) {
             var al = rN[indexa];
@@ -56,9 +53,9 @@ module.exports.loop = function () {
             setMemorySpawn(spawn);
             roleNameSet(spawnMem);
             calcSpawn(spawn); //spawning process
-            spawningMessage();
+            /* returning error ->*/ //spawningMessage();
             countCreeps();
-            towerDefend();
+            /* returning error (I have no tower?)->*/ //towerDefend();
             //console.log(JSON.stringify(selectedRole));
 
             name = undefined;

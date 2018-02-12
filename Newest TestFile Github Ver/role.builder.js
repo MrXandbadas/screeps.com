@@ -1,62 +1,98 @@
-var roleUpgrader = require('role.upgrader');
-
 module.exports = {
-    // a function to run the logic for this role
+
     run: function (creep) {
-        if (!creep.memory.working) {
-            creep.memory.working = false;
+    
+        if (creep.memory.jobTask[0].harvestingSource = 'false' && creep.carry.energy == 0) {
+
+            creep.memory.jobTask[0].harvestingSource = 'true';
         }
-        // if creep is trying to complete a constructionSite but has no energy left
-        if (creep.memory.working == true && creep.carry.energy == 0) {
-            // switch state
-            creep.memory.working = false;
+        
+        else if (creep.memory.jobTask[0].harvestingSource == 'true' && creep.carry.energy == creep.carryCapacity) {
+    
+            creep.memory.jobTask[0].harvestingSource = 'false';
+            creep.memory.jobTask[3].buildingStructure = 'true';
         }
-        // if creep is harvesting energy but is full
-        else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
-            // switch state
-            creep.memory.working = true;
+        else if (creep.memory.jobTask[0].harvestingSource == 'false' && creep.carry.energy == creep.carryCapacity) {
+    
+            creep.memory.jobTask[0].harvestingSource = 'false';
+            creep.memory.jobTask[3].buildingStructure = 'true';
         }
-        // if creep is supposed to complete a constructionSite
-        if (creep.memory.working == true) {
-            // find closest constructionSite
-            var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-            // if one is found
-            if (constructionSite != undefined) {
-                // try to build, if the constructionSite is not in range
-                if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
-                    // move towards the constructionSite
-                    creep.moveTo(constructionSite, {visualizePathStyle: {stroke: '#ffffff'}});
-                }
-            }
-            // if no constructionSite is found
-            else {
-                // go upgrading the controller
-                roleUpgrader.run(creep);
-            }
+    
+        else if (creep.memory.jobTask[3].buildingStructure == 'true' && creep.carry.energy == 0) {
+    
+     
+            creep.memory.jobTask[0].harvestingSource = 'true';
+            creep.memory.jobTask[3].buildingStructure = 'false';
         }
-        // if creep is supposed to harvest energy from source
-        else {
-            let container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: s => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0
-            });
-            if (container == undefined) {
-                const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-                if(target) {
-                    if(creep.pickup(target) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-                    }
-                }
-                container = creep.room.storage;
+
+        else if (creep.memory.jobTask[3].buildingStructure == 'false' && creep.carry.energy == creep.carryCapacity) {
+    
+     
+            creep.memory.jobTask[0].harvestingSource = 'false';
+            creep.memory.jobTask[3].buildingStructure = 'true';
+
+
+        }
+
+        /// 
+
+
+        if (creep.memory.jobTask[3].buildingStructure  == 'true') {
+ 
+            let buildingSite = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+            if (creep.memory.jobTask[3].buildingStructureID != buildingSite) {
+ 
+                creep.memory.jobTask[3].buildingStructureID = buildingSite.id;
+        if (buildingSite == null) {
+    console.log(buildingSite, ' Builders not working! No site defined in search')
+        }
+
             }
 
-            // if one was found
-            if (container != undefined) {
-                // try to withdraw energy, if the container is not in range
-                if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    // move towards it
-                    creep.moveTo(container, {visualizePathStyle: {stroke: '#ffffff'}});
-                }
-            }
+            if (creep.memory.jobTask[3].buildingStructureID != undefined) {
+
+                
+            if (creep.build(buildingSite) == ERR_NOT_IN_RANGE) {
+            const path = creep.pos.findPathTo(buildingSite);
+             creep.memory.path = path;
+            Memory.path = Room.serializePath(path);
+            creep.moveByPath(Memory.path);
+                    
         }
-    }
-};
+    } else {console.log("hiithere")}
+        }
+
+
+
+        if (creep.memory.jobTask[0].harvestingSource == 'true') {
+            const source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+    
+           if (creep.memory.jobTask[0].harvestingSourceID == undefined) {
+     
+               creep.memory.jobTask[0].harvestingSourceID = source.id;
+     
+           }
+    
+             if (creep.memory.jobTask[0].harvestingSourceID != undefined) {
+
+                    if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                        const path = creep.pos.findPathTo(source);
+                        creep.memory.path = path;
+                        Memory.path = Room.serializePath(path);
+                        creep.moveByPath(Memory.path);
+                        
+                        }
+            }
+           
+        }
+           
+        }
+    
+    
+    
+        
+    
+    
+    
+    };
+    
