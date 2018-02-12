@@ -59,7 +59,9 @@ module.exports.loop = function () {
             //console.log(JSON.stringify(selectedRole));
 
             name = undefined;
-       
+
+
+            //debug1(spawn, allMyCreeps, energy);
             // spawn.spawning is spawning someone. ! means not
             if (!(spawn.spawning == null)) {
 

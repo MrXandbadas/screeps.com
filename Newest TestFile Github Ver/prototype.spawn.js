@@ -1,6 +1,21 @@
 module.exports = function() {
 
-    calcSpawn = function(spawn, selectedRole) {
+
+
+        var workState = [
+            {harvestingSource: 'true', harvestingSourceID: ''},
+            {upgradingAttempt: 'false', upgradingSourceID: ''},
+            {deliveryToStructure: 'false', deliveryToStructureID: ''},
+            {buildingStructure: 'false', buildingStructureID: ''},
+            {repairing: '', repairingID: ''},
+            {creepBirthRole: '', blankSpaceBaby: 'Your Name'}
+    
+        ];
+        
+    
+
+    calcSpawn = function(spawn) {
+
         selectedRole = [];
        if (spawnMem.aStage == undefined) {
 
@@ -8,7 +23,7 @@ module.exports = function() {
             // Give a message when spawning someone
             if(Game.spawns[home].spawning) {
                 var spawningCreep = Game.creeps[Game.spawns[home].spawning.name];
-                Game.spawns[home].room.visual.text('Spawning a ' + Game.spawns[home].spawning.name,
+                new RoomVisual(Game.spawns[home].room.name).text('Spawning a ' + Game.spawns[home].spawning.name,
                 Game.spawns[home].pos.x + 1,
                 Game.spawns[home].pos.y,
             {align: 'left', opacity: 0.8});}
@@ -16,20 +31,26 @@ module.exports = function() {
         setMemorySpawn(spawn);
        }
        else {
+           if(spawn.memory.repopulation[0].toggle != 'false') {
             if (spawnMem.aStage == 1) {
                 countCreeps();
-                energy = spawnMem.myEnergy;
+                energy = spawn.energy;
               /*  let i = 1;
                 if (i == 1) {
                     usrSpawn();
                 }*/
+                
 
                 if(harvesterCount == 0 && minerCount == 0){
-                    harvester1Spawn(selectedRole)  
+                    harvester1Spawn(selectedRole) 
+                     
                 }
-            if (energy > 350) { 
+            else if (energy >= 300) { //in aStage = 1 this needs to remain at 300
                 if (harvesterCount < spawnMem.minHarvester) {
                     harvester1Spawn(selectedRole)  
+                }
+                if (harvesterCount == 1){
+                    spawn.memory.repopulation[0].toggle = 'false'
                 }
                 
                 else if (upgraderCount < spawnMem.minUpgrader) {
@@ -53,7 +74,8 @@ module.exports = function() {
                 }
             }
                 else {
-                    
+                    //blank else statement
+                   
                 }
 
             } 
@@ -84,6 +106,7 @@ module.exports = function() {
             console.log('Amount of Energy: ' + energy); // LOG HERE! -- For future Refference
             }
         }
+    }
     };
      // return selectedRole.       
 
@@ -155,7 +178,7 @@ module.exports = function() {
         body.push(MOVE);
     }          
      return this.spawnCreep(body, creepName, { memory: {
-         role: 'harvester', working: false
+         role: 'harvester', jobTask: workState, home: spawn.room.name
         }
     });
 };
@@ -175,8 +198,7 @@ module.exports = function() {
             body.push(MOVE);
         }          
          return this.spawnCreep(body, creepName, { memory: {
-             role: roleName,
-             working: false 
+             role: roleName, jobTask: workState, home: spawn.room.name 
          }
             });    
     

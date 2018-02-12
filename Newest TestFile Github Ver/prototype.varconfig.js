@@ -1,15 +1,9 @@
 module.exports = function() {
     _ = require('lodash');
     baseVar = function() {
-        var creep, creepRole, spawn, name, runRole,  selectedRole, energy, creepName, energyCap, allMyCreeps, minCounter, spawnMem, spM, calcSpawn, setMemorySpawn, aStage, stageUpdate,roleName,target, sourceIndex, HOME, selRoleName, roleCount;
+        var creep, creepRole, spawn, name, runRole,  selectedRole, energy, creepName, energyCap, allMyCreeps, minCounter, spawnMem, spM, calcSpawn, setMemorySpawn, aStage, stageUpdate,roleName,target, sourceIndex, HOME, selRoleName,workState, roleCount;
 
-        var workState = [
-            {harvestingSource: 'true', harvestingSourceID: ''},
-            {upgradingAttempt: 'false', upgradingSourceID: ''},
-            {deliveryToStructure: 'false', deliveryToStructureID: ''},
-            {buildingStructure: 'false', buildingStructureID: ''}
-    
-        ];
+
     }
     //please leave Harvester, upgrader and builder as the first 3
     baseVarRole = () => {
@@ -23,11 +17,16 @@ module.exports = function() {
             { role: 'miner', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'miner')},
             { role: 'longDistance', roleCount: _.sum(Game.creeps, (c) => c.memory.role == 'longDistance')}
         ];
-        roleName = [];
+
+        
+
+        roleNameaba = [];
       
         
 
     };
+
+   
         /* 
         Please define new roles inside the roleName.push() array function
         */
@@ -49,23 +48,29 @@ module.exports = function() {
         /* Please define minimum number of Roles per room */
 
         setMemorySpawn = function(spawn) {
-        spawnMem.minBuilder = 1;
-        spawnMem.minDelivery = 3;
-        spawnMem.minMiner = 2;
-        spawnMem.minUpgrader = 2;
-        spawnMem.minRepairer = 2;
-        spawnMem.minHarvester = 3;
-        spawnMem.minWallRepairer = 1;
-        spawnMem.minLongDistance = 3
+        
         spawnMem.stageChanger;
         spawnMem.roomName = spawn.room.name;
 
         spawnMem.myArr = [];
         // Change spawning stage in the memory (levels 1 && 2)
-        spawnMem.aStage = 1;
+
         spawnMem.selectedRole = [];
 
-        if (spawnMem.aStage == 2){ 
+        //reFormatting
+        if (!spawnMem.aStage) {
+            spawnMem.aStage = 1;
+            spawnMem.minBuilder = 1;
+            spawnMem.minDelivery = 0;
+            spawnMem.minMiner = 0;
+            spawnMem.minUpgrader = 2;
+            spawnMem.minRepairer = 1;
+            spawnMem.minHarvester = 2;
+            spawnMem.minWallRepairer = 0;
+            spawnMem.minLongDistance = 3;
+        }
+
+        else if (spawnMem.aStage == 2){ 
             spawnMem.minBuilder = 1;
             spawnMem.minDelivery = 2;
             spawnMem.minMiner = 2;
