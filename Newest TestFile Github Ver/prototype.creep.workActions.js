@@ -2,22 +2,49 @@ var useMe = require('prototype.creep');
 useMe.test();
 module.exports = {
 
-    creepBasicWork: function(creep) {
+    creepBasicWork: async function(creep) {
+
+        var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+            filter: (s) => (s.structureType == STRUCTURE_SPAWN
+                || s.structureType == STRUCTURE_EXTENSION
+                || s.structureType == STRUCTURE_TOWER)
+                && s.energy < s.energyCapacity
+        });
+
+
+
 
         // checking if the creep is carrying 0 energy and harvestmem isnt false
-        if (creep.carry.energy != creep.carryCapacity && creepMemHarvestSource == 'false') {
-
-            creepMemHarvestSource = 'true';
+       creepNfHSF: if (creep.carry.energy != creep.carryCapacity) {
+           //
+            
+            
+                if (creep.carry.energy == creep.carryCapacity) {
+                creepMemHarvestSource = 'false';
+                creepMemDelivery = 'true';
+                console.log('hi')
+                break creepNfHSF;
+            }   
+            harvestTask(creep);
+            //creepMemHarvestSource = 'true';
             textset('Harvesting!');
-
+            
+console.log('testing123')
             
         }
-        else if (creepMemHarvestSource == 'true' && creep.carry.energy == creep.carryCapacity) {
-            creepMemDelivery = 'true';
-            creepMemHarvestSource = 'false';
+        console.log('testaa')
+        creepD: if (creepMemDelivery == 'true') {
             textset('Im Full');
+            console.log('help')
+            deliverTask(creep);
+            if (structure === null || structure === undefined) {
+                console.log('hey')
+                break creepD;
+            }
+        }
         
-    
+        if (creepMemDelivery == 'true' && creep.carry.energy == creep.carryCapacity) {
+            console.log('test')
         }
         else if (creepMemHarvestSource == 'true' && creep.carry.energy == 0) {
     
@@ -36,18 +63,6 @@ module.exports = {
         // seperated 
 
 
-        if (creepMemHarvestSource == 'true') {
-            harvestTask(creep);
-            textset('I Should go Harvest');
-            return;
-        }
-        else if (creep.carry.energy == creep.carryCapacity && creepMemDelivery){}
-        else if (creepMemDelivery == 'true') {
-            deliverTask(creep);
-            textset('Back to base!');
-            
-        }
-
 
 
    
@@ -56,12 +71,7 @@ module.exports = {
         function deliverTask(creep) {
 
 
-            var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                filter: (s) => (s.structureType == STRUCTURE_SPAWN
-                    || s.structureType == STRUCTURE_EXTENSION
-                    || s.structureType == STRUCTURE_TOWER)
-                    && s.energy < s.energyCapacity
-            });
+            
             if (structure != undefined) {
         
         

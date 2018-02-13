@@ -60,6 +60,6 @@ console.log(Game.cpu.bucket)
         // console.log(longDistanceCount, '/', JSON.stringify(selRoleName.role[7].name));
         console.log('------End of Debug-------');
         console.log('                                       ')
-                console.log('                                       ')
+        
     };
 };

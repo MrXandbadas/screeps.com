@@ -12,7 +12,8 @@ module.exports = {
      creepMemBuildingStructureID = creep.memory.jobTask[2].buildingStructureID,
      creepMemRepair = creep.memory.jobTask[4].repairing,
      creepMemRepairTargets = creep.memory.jobTask[4].repairingID,
-     creepMemBirthRole = creep.memory.jobTask[5].creepBirthRole
+     creepMemBirthRole = creep.memory.jobTask[5].creepBirthRole,
+     creepMemJobToggle = creep.memory.jobTask[6].jobToggle
    ];
    },
 

@@ -1,5 +1,5 @@
 module.exports = function() {
-    
+
     var creepMemHarvestSourceID = creep.memory.jobTask[0].harvestingSourceID;
     var creepMemHarvestSource = creep.memory.jobTask[0].harvestingSource;
     var creepMemUpgradeController = creep.memory.jobTask[1].upgradingAttempt;
@@ -11,6 +11,7 @@ module.exports = function() {
     var creepMemRepair = creep.memory.jobTask[4].repairing;
     var creepMemRepairTargets = creep.memory.jobTask[4].repairingID;
     var creepMemBirthRole = creep.memory.jobTask[5].creepBirthRole;
+    var creepMemJobToggle = creep.memory.jobTask[6].jobToggle;
 
     
 };

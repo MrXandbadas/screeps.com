@@ -1,6 +1,6 @@
 module.exports = function() {
 
-
+    
 
         var workState = [
             {harvestingSource: 'true', harvestingSourceID: ''},
@@ -8,13 +8,19 @@ module.exports = function() {
             {deliveryToStructure: 'false', deliveryToStructureID: ''},
             {buildingStructure: 'false', buildingStructureID: ''},
             {repairing: '', repairingID: ''},
-            {creepBirthRole: '', blankSpaceBaby: 'Your Name'}
+            {creepBirthRole: '', blankSpaceBaby: 'Your Name'},
+            {jobToggle: 0}
     
         ];
         
     
 
     calcSpawn = function(spawn) {
+
+        if (!(spawn.memory.repopulation) || spawn.memory.repopulation == undefined) {
+            spawn.memory.repopulation = [{toggle: 'true'}];
+           
+        }
 
         selectedRole = [];
        if (spawnMem.aStage == undefined) {
