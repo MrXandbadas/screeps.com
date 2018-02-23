@@ -35,6 +35,7 @@ module.exports.loop = function () {
   
         for (let name in Game.creeps) {
             creep = Game.creeps[name];
+            
             //creep.suicide();
     
             roleName = creep.memory.role;

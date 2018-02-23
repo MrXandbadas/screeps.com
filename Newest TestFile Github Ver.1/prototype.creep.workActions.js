@@ -1,41 +1,126 @@
-require('prototype.creep')();
+
 
 
 
     exports.averageWorker = (creep, selectedRole) => {
 
+        const creepMemHarvestSourceID = creep.memory.jobTask.harvestingSourceID.sources[0].id;
+        const creepMemHarvestSource = creep.memory.jobTask.harvestingSource;
+        const creepMemUpgradeController = creep.memory.jobTask.upgradingAttempt;
+        const creepMemUpgradeID = creep.memory.jobTask.upgradingSourceID;
+        const creepMemDelivery = creep.memory.jobTask.deliveryToStructure;
+        const creepMemDeliverID = creep.memory.jobTask.deliveryToStructureID;
+        const creepMemBuildingStructure = creep.memory.jobTask.buildingStructure;
+        const creepMemBuildingStructureID = creep.memory.jobTask.buildingStructureID;
+        const creepMemRepair = creep.memory.jobTask.repairing;
+        const creepMemRepairTargets = creep.memory.jobTask.repairingID;
+        const creepMemBirthRole = creep.memory.jobTask.creepBirthRole;
+        const creepMemJobToggle = creep.memory.jobTask.jobToggle;
+    
+
         let deliverTask, harvestTask, upgraderTask;
         
 
+        function creepTalk(creep, outP){ 
+            new RoomVisual(creep.room.name).text(outP,
+            creep.pos.x + 1,
+            creep.pos.y,
+            {align: 'left', opacity: 0.4});
+        } // creep text display function, nested.
 
+        function harvestSource(creep) {
+            creepTalk(creep, 'Harvesting');
+            
+            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {   
+ 
+                const path = creep.pos.findPathTo(source);             
+                creep.memory.path = path;                    
+                new RoomVisual(creep.room.name).poly(path, {stroke: '#fff', strokeWidth: .15,                    
+                opacity: .2, lineStyle: 'dashed'});                    
+                Memory.path = Room.serializePath(path);                  
+                creep.moveByPath(Memory.path);
+            
+            }
+        }
+        function transferEnergyStructure(creep) {
+
+            if (creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                const path = creep.pos.findPathTo(structure);
+                creep.memory.path = path;
+                new RoomVisual(creep.room.name).poly(path, {stroke: '#fff', strokeWidth: .15,
+                opacity: .2, lineStyle: 'dashed'});
+                Memory.path = Room.serializePath(path);
+                creep.moveByPath(Memory.path);
+                
+            }
+
+        }
+
+
+
+
+
+
+
+        Creep.prototype.harvestTask = function (creep) {
+
+
+
+
+
+            // end of funct
+           var sourceObj = creep.room.find(FIND_SOURCES);
+
+           console.log(creep.name, creep.carryCapacity, ' carrycap | energy ', creep.carry.energy);
+
+            if (sourceObj.length == 1 && creep.carry.energy != creep.carryCapacity || creep.carry.energy == 0) {
+                var source = sourceObj[0];
+                creep.memory.role = 'harvester';
+                harvestSource(creep);
+            }
+            else if (sourceObj.length == 2 && creep.carry.energy != creep.carryCapacity || creep.carry.energy == 0) {
+                var source = sourceObj[0];
+                creep.memory.role = 'harvester';
+                harvestSource(creep);
+
+            } else if (sourceObj.length > 2 && creep.carry.energy != creep.carryCapacity || creep.carry.energy == 0)
+            
+            if (creep.carry.energy == creep.carryCapacity) {
+                creep.memory.jobTask.harvestingSource = false;
+                console.log('hiii')
+                var creepMemDelivery = true;
+                console.log(creep.name, creepMemHarvestSource, creepMemDelivery)
+                creep.deliverTask(creep);
+               
+
+            }
+
+        }, // creep harvestTask function, nested.
 
         Creep.prototype.deliverTask = function(creep) {
+            creepTalk(creep, 'Building')
 
-            let structure;
+            var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+                // the second argument for findClosestByPath is an object which takes
+                // a property called filter which can be a function
+                // we use the arrow operator to define it
+                filter: (s) => (s.structureType == STRUCTURE_SPAWN
+                    || s.structureType == STRUCTURE_EXTENSION
+                    || s.structureType == STRUCTURE_TOWER)
+                    && s.energy < s.energyCapacity
+            });
+
+
+            //end of functions
             
+            console.log(structure)
             if (structure != undefined) {
         
-        
-                if (creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    const path = creep.pos.findPathTo(structure);
-                    creep.memory.path = path;
-                    new RoomVisual(creep.room.name).poly(path, {stroke: '#fff', strokeWidth: .15,
-                    opacity: .2, lineStyle: 'dashed'});
-                    Memory.path = Room.serializePath(path);
-                    creep.moveByPath(Memory.path);
-                    
-                }
+transferEnergyStructure(creep, source)
+
             } 
             else if (!(structure != undefined)) { 
-                        let structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                            // the second argument for findClosestByPath is an object which takes
-                            // a property called filter which can be a function
-                            // we use the arrow operator to define it
-                            filter: (s) => (s.structureType == STRUCTURE_SPAWN
-                                || s.structureType == STRUCTURE_EXTENSION
-                                || s.structureType == STRUCTURE_TOWER)
-                                && s.energy < s.energyCapacity
-                        });
+
                     
                 }
          
@@ -49,46 +134,16 @@ require('prototype.creep')();
                     
                 }
             else  {
-              console.log('test')  
+              creep.upgraderTask(creep);  
             }
 
 
         },
    
-         Creep.prototype.harvestTask = function (creep) {
-            useMe.creepMem(creep)
-            console.log('here harvestTask')
-            if (!(creep.carry != creep.carryCapacity)) {
-                console.log('carrying me so hard')
-                const source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-            } else if (creepMemHarvestSource == 'true') {
-            
-                if (creepMemHarvestSourceID == undefined) {
-                    let ye = Game.getObjectById(source);
-                    creepMemHarvestSourceID = ye;
-                }
-         
-                if (creepMemHarvestSourceID!= undefined) { 
-                    if (creep.harvest(source) == ERR_NOT_IN_RANGE) {             
-                        const path = creep.pos.findPathTo(source);             
-                        creep.memory.path = path;                    
-                        new RoomVisual(creep.room.name).poly(path, {stroke: '#fff', strokeWidth: .15,                    
-                        opacity: .2, lineStyle: 'dashed'});                    
-                        Memory.path = Room.serializePath(path);                  
-                        creep.moveByPath(Memory.path);
-                    
-                    }
-                }
-       
-            }
-
-        }, // creep harvestTask function, nested.
-
          Creep.prototype.upgraderTask = function(creep) {
-            if (creep.carry != creep.carryCapacity) {
-                creepMemHarvestSource = 'true';
-                return;
-            } else if (creep.carry == creep.carryCapacity) {
+
+            function upgradeTime(creep){
+                creepTalk(creep, 'Upgrading!');
                 if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                     const path = creep.pos.findPathTo(creep.room.controller);
                     creep.memory.path = path;
@@ -98,60 +153,25 @@ require('prototype.creep')();
                     creep.moveByPath(Memory.path);
     
                     }
+            }
+
+            if(creepMemUpgradeController == true) {
+            for(let i = 0; creep.carry.energy != 0; i++) {
+                upgradeTime(creep);
                 }
+            } else if (creepMemUpgradeController == false) {
+                console.log('imfalse')
+            }
 
                 if (creepMemUpgradeID != undefined) {
                     console.log(creepMemUpgradeID)
                    
                } 
             else if (creepMemUpgradeID == '') {
-                creepMemUpgradeID = creep.room.controller.id;
-                } else if (creepMemUpgradeID == undefined) {
-                    let quick = Game.getObjectbyID(creep.room.controller);
-                    creepMemUpgradeID = quick;
-                    
-                    }
-        
-
+               var creepMemUpgradeID = creep.room.controller.id;
+                } 
                 
-        },
-
-         function testset(outP){ 
-            new RoomVisual(creep.room.name).text(outP,
-            creep.pos.x + 1,
-            creep.pos.y,
-        {align: 'left', opacity: 0.3});
-            } // creep text display function, nested.
-
-
-
-
-
-
-//Generator Functions *Lightly foams at mouth*
-function* genCreep() {
-
- var myTest = yield       
-    //console.log('generator after 2nd next')
-    yield console.log(myTest);
-     return 'mystring'; //return is to finish the generator, shutoff procedure/reboot prep
-     
-     
-         }
-
-
-//start generator
-const genRun = genCreep();
-const genRunDR1 = JSON.stringify(genRun.next());
-//const genRunDR = JSON.stringify();
-//const genRunDR2 = JSON.stringify(genRun.next(deliverTask));
-
-///
-console.log(JSON.stringify(genRun.next(Creep.prototype.harvestTask(creep))));
-            //console.log(genRunDR);
-
-
-
+        }
 
 
 
