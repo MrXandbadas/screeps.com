@@ -72,6 +72,14 @@ const myLog = (arg, arg2) => {
     function* runMain() {
         let spawn, creep;
         //console.log('hi im here generatnig')
+
+        /* FOAMING AT MOUTH
+        
+        yield* anotherGenerator()
+        
+        will pause this generator and wait till the next generator is complete, then resume!!!
+        Most things can be generators no?
+        */
         
         //console.log(JSON.stringify(mySpawnFunc()))
         const spawnOut = yield mySpawnFunc(); 
