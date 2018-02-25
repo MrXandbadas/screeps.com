@@ -46,62 +46,18 @@ console.log('repopulation is Undefined!')
         
        }
        else if (spawnMem.usrSettings.repopulation == true) {
+           if (creepCount.totalCreepCount == 0){
+            harvester1Spawn( )
+           }
         
         if (creepCount.totalCreepCount < minCreep.totalCreepCount) {
 
-            //If SpawningToggled then call creepCounter
-
-
-            if (creepCount.harvesterCount < minCreep.minHarvester) {
-               
+    
                 harvester1Spawn( ) 
                  
-            }
+            
 
-                      
-            else if (spawnMem.aStage == 1) {
-                var energy = spawn.energy;
-              /*  let i = 1;
-                if (i == 1) {
-                    usrSpawn();
-                }*/
-                
-
-                if(creepCount.harvesterCount == 0 && creepCount.minerCount == 0){
-                    harvester1Spawn( ) 
-                     
-                }
-            else if (energy >= 300) { //in aStage = 1 this needs to remain at 300
-                if (harvesterCount < minCreep.minHarvester) {
-                    harvester1Spawn( )  
-                }
-                
-                else if (upgraderCount < minCreep.minUpgrader) {
-                    upgrader1Spawn( );
-                }
-                
-                else if (deliveryCount < minCreep.minDelivery) {
-                    delivery1Spawn( )
-                }                
-        
-                else if (builderCount < minCreep.minBuilder) {
-                    builder1Spawn( )
-                }
-                
-                else if (repairerCount < minCreep.minRepairer) {
-                    repairer1Spawn( )
-                }
-
-                else if (longDistanceCount < 6) {
-                   longDistance1Spawn( );
-                }
-            }
-                else {
-                    //blank else statement
-                   
-                }
-
-            } 
+                       
         }
         else {
 
