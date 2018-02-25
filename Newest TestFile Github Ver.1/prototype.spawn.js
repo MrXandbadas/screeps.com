@@ -45,16 +45,23 @@ const baseSetting = require('prototype.varconfig');
                     console.log(name) //LOG HERE! -- For future Refference
         }
     
-
+        //Function spawningMessage
         function spawningMessage(){
             // Give a message when spawning someone
-            if(Game.spawns[home].spawning) {
-                var spawningCreep = Game.creeps[Game.spawns[home].spawning.name];
-                new RoomVisual(Game.spawns[home].room.name).text('Spawning a ' + Game.spawns[home].spawning.name,
-                Game.spawns[home].pos.x + 1,
-                Game.spawns[home].pos.y,
+            if(spawn.spawning) {
+                var spawningCreep = Game.creeps[spawn.spawning.name];
+                new RoomVisual(spawn.room.name).text('Spawning a ' + spawn.spawning.name,
+                spawn.pos.x + 1,
+                spawn.pos.y,
             {align: 'left', opacity: 0.8});}
         }
+
+
+           // function userSpawn
+       function usrSpawn(spawn){
+        name = spawn.createClaimer();
+       }
+
 
         // End of Function Definitions
 
@@ -84,7 +91,7 @@ console.log('repopulation is Undefined!')
                 }*/
                 
 
-                if(harvesterCount == 0 && minerCount == 0){
+                if(creepCount.harvesterCount == 0 && creepCount.minerCount == 0){
                     harvester1Spawn( ) 
                      
                 }
@@ -126,10 +133,7 @@ console.log('repopulation is Undefined!')
 
         
  
-   
-       function usrSpawn(spawn){
-        name = spawn.createClaimer();
-       }
+
 
        StructureSpawn.prototype.createClaimer = function (creepName) {
             

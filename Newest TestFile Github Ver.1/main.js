@@ -8,8 +8,16 @@ require('screeps-perf')({
 const baseSetting = require('prototype.varconfig') // Access to  SetMemSpawn
 const usrSpawn = require('prototype.spawn');
 
-  const mySpawnFunc = () => {
+const checkOnInit = () => {
+//Implement a room Searching function to see if the room has gone through the initalisation stage :D
+//for now just a console log
+console.log('init stage reached, needs dev line 11-14 @main.js')
 
+}
+
+
+  const mySpawnFunc = () => {
+let myOutput = [];
 
     for (let spawnName in Game.spawns){
         const spawn = Game.spawns[spawnName];
@@ -19,12 +27,6 @@ const usrSpawn = require('prototype.spawn');
         
         usrSpawn.calcSpawn(spawn, creepCount)
 
-
-
-        
-
-
-        
         //let spawnMem = spawn.memory;
        /* confi.setMemorySpawn(spawn,spawnMem);
         confi.roleNameSet(spawnMem);
@@ -36,14 +38,17 @@ const usrSpawn = require('prototype.spawn');
 
             debug(spawn, allMyCreeps);
         } // end of !(spawn.spawning)*/
-
+        myOutput.push(spawn);
+        return myOutput; //returning the spawn object in an array
     
 };
+    return myOutput; // returning the spawn object in an array
 
+}; // end of mySpawnFunc
 
-};
+const myCreepFunc = (mySpawns) => {
 
-const myCreepFunc = () => {
+    //mySpawns Obj is an array with the users avaliable spawns.
 
     var workTime = require('prototype.creep.workActions');
 
@@ -60,19 +65,25 @@ const myCreepFunc = () => {
 
         
     };
-};
+}; //end of myCreepFunc, which takes the spawn object.
 
 const myLog = (arg, arg2) => {
 
-   // console.log(arg, arg2);
+   console.log(arg, arg2);
 }
 
 
   module.exports.loop = function () {
     function* runMain() {
+        
         let spawn, creep;
-        //console.log('hi im here generatnig')
-
+        var mySpawns = mySpawnFunc();
+        
+        console.log('start of Generator --------------')
+        checkOnInit(); yield  //to stop an overflow attemt while delcairing
+        
+        
+        
         /* FOAMING AT MOUTH
         
         yield* anotherGenerator()
@@ -80,12 +91,14 @@ const myLog = (arg, arg2) => {
         will pause this generator and wait till the next generator is complete, then resume!!!
         Most things can be generators no?
         */
+        console.log('before first yield')
+        console.log('-------')
         
         //console.log(JSON.stringify(mySpawnFunc()))
-        const spawnOut = yield mySpawnFunc(); 
-        console.log(spawn, ' is my return')
-       
-        myCreepFunc();
+        const spawnOut = yield mySpawns 
+        myCreepFunc(mySpawns);
+        console.log(mytestVar)
+        
 
         let name = undefined;
         
@@ -98,16 +111,21 @@ const myLog = (arg, arg2) => {
 
         }
     const genRun = runMain();
+    const genVal = genRun.next().value;
     
 
  // end of CreepCheck Const
 
-// console.log(genRun.next())
-genRun.next('test');
+
+console.log('SPAWN with value? ',JSON.stringify());
+//console.log(JSON.stringify(spawn, genRun.next()))
 //genRun.next('passYield1')
 //genRun.next('test')
-console.log(JSON.stringify(genRun.next()))
 //genRun.next();
+var spawnObj;
+spawnObj = genRun.next().value;
+genRun.next(spawnObj)
+
 
 
 
