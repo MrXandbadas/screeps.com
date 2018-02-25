@@ -7,35 +7,9 @@ const baseSetting = require('prototype.varconfig');
 
         function harvester1Spawn( ) {
             
-            creepName = 'Harvester: ' + Game.time;
+            creepName = 'Basic Work Creep: ' + Game.time;
             name = spawn.backupHarvester(creepName,spawn);
              
-        }
-        function builder1Spawn( ) {
-            creepName = 'Builder: ' + Game.time;
-            name = spawn.createCreepType1(energy, 'builder', creepName);
-            
-        }
-        function miner1Spawn( ) {
-            creepName = 'Miner: ' + Game.time; 
-                    name = spawn.createMiner1(energy, 'miner', creepName);
-                    
-        }
-        function delivery1Spawn( ) {
-            creepName = 'Delivery: ' + Game.time; 
-                    name = spawn.createCreepTypeCarryMove(energy, 'delivery', creepName);
-                     
-    
-        }
-        function upgrader1Spawn( ) {
-            creepName = 'Upgrader: ' + Game.time; 
-                    name = spawn.createCreepType1(energy, 'upgrader', creepName);
-                     
-        }
-        function repairer1Spawn( ) {
-            creepName = 'Repairer: ' + Game.time; 
-                    name = spawn.createCreepType1(energy, 'repairer', creepName);
-                     
         }
         function longDistance1Spawn( ) {
             creepName = ' Weary Traveler: ' + Game.time; 
@@ -48,12 +22,12 @@ const baseSetting = require('prototype.varconfig');
         //Function spawningMessage
         function spawningMessage(){
             // Give a message when spawning someone
-            if(spawn.spawning) {
+            /*if(spawn.spawning) {
                 var spawningCreep = Game.creeps[spawn.spawning.name];
-                new RoomVisual(spawn.room.name).text('Spawning a ' + spawn.spawning.name,
+                 new RoomVisual(spawn.room.name).text('Spawning a ' + spawn.spawning.name,
                 spawn.pos.x + 1,
                 spawn.pos.y,
-            {align: 'left', opacity: 0.8});}
+            {align: 'left', opacity: 0.8});}*/
         }
 
 
@@ -72,6 +46,8 @@ console.log('repopulation is Undefined!')
         
        }
        else if (spawnMem.usrSettings.repopulation == true) {
+        
+        if (creepCount.totalCreepCount < minCreep.totalCreepCount) {
 
             //If SpawningToggled then call creepCounter
 
@@ -127,7 +103,15 @@ console.log('repopulation is Undefined!')
 
             } 
         }
+        else {
+
+            console.log('==== Not my best debugging tbh ====')
+            console.log('I HAVE ' + creepCount.totalCreepCount + ' OUT OF ' + JSON.stringify(minCreep))
+        console.log(JSON.stringify(creepCount))
+        console.log('==== Not my best debugging tbh ====')
+        }
     
+    }
     },
      // return  .       
 

@@ -44,18 +44,23 @@ var selRoleName;
         
         let 
         upgraderCount = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader'),
+        harvesterCount = _.sum(Game.creeps, (c) => c.memory.role == 'harvester'),
         builderCount = _.sum(Game.creeps, (c) => c.memory.role == 'builder'),
         repairerCount = _.sum(Game.creeps, (c) => c.memory.role == 'repairer'),
         wallRepairerCount = _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer'),
         deliveryCount = _.sum(Game.creeps, (c) => c.memory.role == 'delivery'),
         minerCount = _.sum(Game.creeps, (c) => c.memory.role == 'miner'), 
         longDistanceCount = _.sum(Game.creeps, (c) => c.memory.role == 'longDistance'),
-        claimerCount = _.sum(Game.creeps, (c) => c.memory.role == 'claimer')
+        claimerCount = _.sum(Game.creeps, (c) => c.memory.role == 'claimer'),
+        totalCreepCount = _.sum(Game.creeps, (c) => c.memory.role != undefined)
+    
 
-        countCreeps.push('harvesterCount');
-        countCreeps.harvesterCount = _.sum(Game.creeps, (c) => c.memory.role == 'harvester');
-        countCreeps.push('upgraderCount');
-        countCreeps.upgraderCount = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
+        countCreeps.push({totalCreepCount})
+        countCreeps.totalCreepCount = totalCreepCount;
+        countCreeps.push({harvesterCount});
+        countCreeps.harvesterCount = harvesterCount;
+        countCreeps.push({upgraderCount});
+        countCreeps.upgraderCount = upgraderCount;
         countCreeps.push({builderCount});
         countCreeps.builderCount = builderCount
         countCreeps.push({repairerCount});
@@ -84,8 +89,8 @@ var selRoleName;
             let setMCreep = usrSet.minCreep;
         usrSet.programLevel = 1;
         spawnMem.usrSettings.repopulation = true;
-            
-            setMCreep.minHarvester = 2;
+            setMCreep.totalCreepCount = 3;
+            setMCreep.minHarvester = 0;
             setMCreep.minBuilder = 0;
             setMCreep.minMiner = 0;
             setMCreep.minRepairer = 0;

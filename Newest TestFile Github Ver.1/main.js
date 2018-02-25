@@ -57,9 +57,8 @@ const myCreepFunc = (mySpawns) => {
         let creepRole = creep.memory.role;
         baseSetting.countCreeps();
         const creepCurrentRoom = creep.room;
-        console.log(creep, ' ', creepCurrentRoom)
-        workTime.averageWorker(creep, creepRole)
-        creep.harvestTask(creep);
+        //workTime.tier1Work(creep)
+        workTime.tier1Work(creep)
 
         
 
@@ -93,11 +92,13 @@ const myLog = (arg, arg2) => {
         */
         console.log('before first yield')
         console.log('-------')
-        
-        //console.log(JSON.stringify(mySpawnFunc()))
-        const spawnOut = yield mySpawns 
-        myCreepFunc(mySpawns);
-        console.log(mytestVar)
+        mySpawns; console.log('mySpawns code called')
+        myCreepFunc(mySpawns); console.log('CreepFunc called and finished')
+       
+
+        yield 
+
+        console.log('test')
         
 
         let name = undefined;
@@ -113,18 +114,12 @@ const myLog = (arg, arg2) => {
     const genRun = runMain();
     const genVal = genRun.next().value;
     
-
+genRun.next()
  // end of CreepCheck Const
 
 
-console.log('SPAWN with value? ',JSON.stringify());
-//console.log(JSON.stringify(spawn, genRun.next()))
-//genRun.next('passYield1')
-//genRun.next('test')
-//genRun.next();
-var spawnObj;
-spawnObj = genRun.next().value;
-genRun.next(spawnObj)
+
+//this then ensures the generator has the spawnObj value 
 
 
 
